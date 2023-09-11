@@ -39,3 +39,14 @@
 1. [User Stories](./doc/user_stories.md)
 1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
+
+
+Contributors:
+Antoine:
+
+Kaylee:
+
+Paul:
+
+Will Chen:
+wfchen1990@gmail.com

@@ -39,8 +39,26 @@ namespace :load_csv do
 end
 
 namespace :load_csv do
+  desc "Load merchants csv"
+  task :merchants => :environment do
+    file_path = File.join(Rails.root, 'db', 'data', 'merchants.csv')
+
+    CSV.foreach(file_path, headers: true) do |row|
+      Merchant.create!(
+        id: row['id'],
+        name: row['name'],
+        created_at: row['created_at'],
+        updated_at: row['updated_at']
+      )
+    end
+
+    ActiveRecord::Base.connection.execute("ALTER SEQUENCE merchants_id_seq RESTART WITH #{Merchant.maximum(:id).to_i + 1}")
+  end
+end
+
+namespace :load_csv do
   desc "Load items csv"
-  task :invoices => :environment do
+  task :items => :environment do
     file_path = File.join(Rails.root, 'db', 'data', 'items.csv')
 
     CSV.foreach(file_path, headers: true) do |row|
@@ -61,7 +79,7 @@ end
 
 namespace :load_csv do
   task :all => :environment do
-    all = [:customers, :invoices]
+    all = [:customers, :invoices, :merchants, :items]
 
     all.each do |file|
       Rake::Task["load_csv:#{file}"].invoke

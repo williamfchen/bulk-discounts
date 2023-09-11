@@ -1,3 +1,6 @@
+https://github.com/Antoine-Aube/little-shop-7
+https://github.com/users/Antoine-Aube/projects/3/views/2
+
 # Little Esty Shop
 
 ## Background and Description
@@ -43,10 +46,13 @@
 
 Contributors:
 Antoine:
+aaube3@gmail.com
 
 Kaylee:
+kaylee.j.janes@gmail.com
 
 Paul:
+pcbennett42@gmail.com
 
 Will Chen:
 wfchen1990@gmail.com

@@ -1,5 +1,6 @@
 https://github.com/Antoine-Aube/little-shop-7
 https://github.com/users/Antoine-Aube/projects/3/views/2
+https://miro.com/app/board/uXjVMmORetk=/
 
 # Little Esty Shop
 

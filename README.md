@@ -1,3 +1,7 @@
+https://github.com/Antoine-Aube/little-shop-7
+https://github.com/users/Antoine-Aube/projects/3/views/2
+https://miro.com/app/board/uXjVMmORetk=/
+
 # Little Esty Shop
 
 ## Background and Description
@@ -39,3 +43,17 @@
 1. [User Stories](./doc/user_stories.md)
 1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
+
+
+Contributors:
+Antoine:
+aaube3@gmail.com
+
+Kaylee:
+kaylee.j.janes@gmail.com
+
+Paul:
+pcbennett42@gmail.com
+
+Will Chen:
+wfchen1990@gmail.com

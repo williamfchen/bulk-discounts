@@ -11,8 +11,8 @@ RSpec.feature "the merchant invoices index page" do
 
       visit "/merchants/#{merchant.id}/invoices"
       
-      expect(page).to have_link(invoice.id)
-      click_link(invoice.id)
+      expect(page).to have_link("#{invoice.id}")
+      click_link("#{invoice.id}")
       expect(page).to have_current_path("/merchants/#{merchant.id}/invoices/#{invoice.id}")
     end
   end

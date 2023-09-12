@@ -3,16 +3,6 @@ Rails.application.routes.draw do
   get "/merchants/:merchant_id/items", to: "merchants/items#index"
   get "/merchants/:merchant_id/invoices", to: "merchants/invoices#index"
   get "/merchants/:merchant_id/invoices/:invoice_id", to: "merchants/invoices#show", as: :merchant_invoice
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   # namespace :merchant do
   #     resources :invoices, only: [:index, :show]
@@ -27,4 +17,11 @@ Rails.application.routes.draw do
   #   resources :items, only: [:index]
   #   resources :invoices, only: [:index, :show]
   # end
+  
+  get "/admin", to: "admin#index"
+  
+  namespace :admin do 
+    resources :merchants, only: [:index]
+    resources :invoices, only: [:index]
+  end
 end

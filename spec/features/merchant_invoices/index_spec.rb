@@ -10,7 +10,7 @@ RSpec.feature "the merchant invoices index page" do
       invoice_item = InvoiceItem.create!(item_id: item.id, invoice_id: invoice.id, quantity: 1, unit_price: 100, status: 0)
 
       visit "/merchants/#{merchant.id}/invoices"
-
+      
       expect(page).to have_button(invoice.id)
       click_button(invoice.id)
       expect(page).to have_current_path("/merchants/#{merchant.id}/invoices/#{invoice.id}")

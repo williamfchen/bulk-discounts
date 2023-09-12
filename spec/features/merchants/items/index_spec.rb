@@ -15,5 +15,17 @@ RSpec.feature "the merchant items index page" do
       expect(page).to have_content(item_2.name)
       expect(page).to_not have_content(item_3.name)
     end
+
+    it "US7 item has a link to go to an items show page" do 
+      visit "/merchants/#{merchant_1.id}/items"
+
+      click_link "#{item_1.name}"
+
+      expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_1.id}")
+
+      expect(page).to have_content(item_1.name)
+      expect(page).to have_content(item_1.description)
+      expect(page).to have_content(item_1.unit_price)
+    end
   end
 end

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "the merchant invoices index page" do
   describe 'when visiting /merchants/merchant_id/invoices' do
-    it 'US14 displays a list of merchant invoices with a button to each invoice show page' do
+    it 'US14 displays a list of merchant invoice with a button to each invoice show page' do
       merchant = Merchant.create!(name: "Bracelets 'n Stuff")
       item = merchant.items.create!(name: "Bracelet", description: "Shiny", unit_price: 100)
       customer = Customer.create!(first_name: "Robert", last_name: "Redford")

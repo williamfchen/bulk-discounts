@@ -5,4 +5,11 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+Merchant.destroy_all
+Item.destroy_all
+Customer.destroy_all
+Invoice.destroy_all
+Transaction.destroy_all
+InvoiceItem.destroy_all
 Rake::Task["load_csv:all"].invoke

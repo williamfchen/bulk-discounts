@@ -68,8 +68,6 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
-    addressable (2.8.5)
-      public_suffix (>= 2.0.2, < 6.0)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -125,7 +123,6 @@ GEM
       net-smtp
     marcel (1.0.2)
     matrix (0.4.2)
-    matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.18.1)
@@ -147,16 +144,10 @@ GEM
     orderly (0.1.1)
       capybara (>= 1.1)
       rspec (>= 2.14)
-    nokogiri (1.15.2-x86_64-linux)
-      racc (~> 1.4)
-    orderly (0.1.1)
-      capybara (>= 1.1)
-      rspec (>= 2.14)
     pg (1.5.3)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    public_suffix (5.0.3)
     public_suffix (5.0.3)
     puma (5.6.6)
       nio4r (~> 2.0)
@@ -193,13 +184,8 @@ GEM
       zeitwerk (~> 2.5)
     rake (13.0.6)
     regexp_parser (2.8.1)
-    regexp_parser (2.8.1)
     reline (0.3.5)
       io-console (~> 0.5)
-    rspec (3.12.0)
-      rspec-core (~> 3.12.0)
-      rspec-expectations (~> 3.12.0)
-      rspec-mocks (~> 3.12.0)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
       rspec-expectations (~> 3.12.0)
@@ -223,6 +209,12 @@ GEM
     rspec-support (3.12.1)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -250,8 +242,6 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    xpath (3.2.0)
-      nokogiri (~> 1.8)
     zeitwerk (2.6.8)
 
 PLATFORMS
@@ -262,12 +252,12 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   capybara
-  capybara
   debug
   factory_bot_rails
   faker
   importmap-rails
   jbuilder
+  launchy
   orderly
   pg (~> 1.1)
   pry
@@ -275,6 +265,7 @@ DEPENDENCIES
   rails (~> 7.0.5)
   rspec-rails
   shoulda-matchers
+  simplecov
   sprockets-rails
   stimulus-rails
   turbo-rails

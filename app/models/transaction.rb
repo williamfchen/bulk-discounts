@@ -6,5 +6,4 @@ class Transaction < ApplicationRecord
   validates :result, presence: true
 
   enum :result,["failed", "success"]
-
 end

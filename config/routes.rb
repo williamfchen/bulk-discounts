@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   get "/merchants/:merchant_id/dashboard", to: "merchants#show"
-  get "/merchants/:merchant_id/items", to: "merchant/items#index"
-  get "/merchants/:merchant_id/invoices", to: "merchant/invoices#index"
-  get "/merchants/:merchant_id/invoices/:invoice_id", to: "merchant/invoices#show", as: :merchant_invoice
+  get "/merchants/:merchant_id/items", to: "merchants/items#index"
+  get "/merchants/:merchant_id/invoices", to: "merchants/invoices#index"
+  get "/merchants/:merchant_id/invoices/:invoice_id", to: "merchants/invoices#show", as: :merchant_invoice
 
   
   
@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   
   
   # namespace :merchant do
-  
   #     resources :invoices, only: [:index, :show]
   #     resources :items, only: [:index]
 

@@ -1,1 +1,23 @@
 <h1><center><%= @merchant.name %> Items</center></h1>
+<table>
+  <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Description</th>
+      <th>Unit Price</th>
+      <th>Created at</th>
+      <th>Updated at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @merchant.items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.description %></td>
+        <td><%= item.unit_price %></td>
+        <td><%= item.created_at %></td>
+        <td><%= item.updated_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

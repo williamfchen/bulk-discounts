@@ -32,14 +32,18 @@ RSpec.feature "the admin/invoices show page" do
   
       invoice_item_1 = InvoiceItem.create(item: item_1, invoice: invoice_1, quantity: 23, unit_price: 34343, status: 0)
       invoice_item_2 = InvoiceItem.create(item: item_2, invoice: invoice_1, quantity: 23, unit_price: 34343, status: 1)
-
       visit admin_invoice_path(invoice_1.id)
-
-      expect(page).to have_content("Invoice ##{invoice_1.id}")
-      expect(page).to have_content(invoice_1.status)
-      expect(page).to have_content(invoice_1.created_at.strftime("%A, %B %d, %Y"))
-      expect(page).to have_content("Customer:")
-      expect(page).to have_content("#{customer_1.first_name} #{customer_1.last_name}")
+      within(".items") do
+        expect(page).to have_content("Items on this Invoice")
+        expect(page).to have_content("Item Name")
+        expect(page).to have_content("Quantity")
+        expect(page).to have_content("Unit Price")
+        expect(page).to have_content("Status")
+        expect(page).to have_content(invoice_item_1.item.name)
+        expect(page).to have_content(invoice_item_1.quantity)
+        expect(page).to have_content(invoice_item_1.unit_price)
+        expect(page).to have_content(invoice_item_1.status)
+      end 
     end
   end
 end

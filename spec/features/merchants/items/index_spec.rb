@@ -8,7 +8,7 @@ RSpec.feature "the merchant items index page" do
       @item_2 = @merchant_1.items.create!(name: "Necklace", description: "Shiny", unit_price: 2000)
       @item_3 = @merchant_2.items.create!(name: "Ring", description: "Shiny", unit_price: 3000)
     end 
-    
+
   describe 'when visiting /merchants/merchant_id/items' do
     it 'US6 displays a list of the merchants items' do
 
@@ -28,7 +28,7 @@ RSpec.feature "the merchant items index page" do
 
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_1.description)
-      expect(page).to have_content(@item_1.unit_price)
+      expect(page).to have_content(@item_1.formatted_unit_price)
     end
   end
 end

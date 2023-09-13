@@ -15,7 +15,7 @@ RSpec.describe 'merchant item show page' do
 
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_1.description)
-      expect(page).to have_content(@item_1.unit_price)
+      expect(page).to have_content(@item_1.formatted_unit_price)
     end
   end
 end

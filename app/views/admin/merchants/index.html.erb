@@ -1,1 +1,16 @@
-<h1>Merchant Index</h1>
+<h1><center>Merchant Index</center></h1>
+<table>
+  <thead>
+    <tr>
+      <th>Merchant Name</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% @merchants.each do |merchant| %>
+      <tr>
+        <td><%= merchant.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

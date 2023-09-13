@@ -20,5 +20,4 @@ class Invoice < ApplicationRecord
   def self.group_by_id
     group(:id)
   end
-
 end

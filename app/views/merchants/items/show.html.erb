@@ -3,3 +3,5 @@
 <!--<p><strong>Name:</strong> <%= @item.name %></p>-->
 <p><strong>description:</strong> <%= @item.description %></p>
 <p><strong>Price:</strong> <%= @item.formatted_unit_price %></p>
+
+<p><%=link_to "Edit Item Info", edit_merchant_item_path(@merchant, @item) %></p>

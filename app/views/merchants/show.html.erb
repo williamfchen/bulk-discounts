@@ -1,2 +1,19 @@
 <h1><center><%= @merchant.name %> Dashboard</center></h1>
 <p><center><%= button_to "View Items", "/merchants/#{@merchant.id}/items", method: :get %></center></p><center><%= button_to "View Invoices", "/merchants/#{@merchant.id}/invoices", method: :get %></center>
+<h1>Top 5 Customers</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Number of Successful Transactions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @merchant.top_five_customers.each do |customer| %>
+      <tr>
+        <td><center><%= customer.first_name %> <%= customer.last_name %></center></td>
+        <td><center><%= customer.transaction_count %><c/enter></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

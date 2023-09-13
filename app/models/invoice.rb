@@ -15,6 +15,11 @@ class Invoice < ApplicationRecord
     .where.not('invoice_items.status = ?', 2)
     .group('invoices.id')
     .order(:id)
+  end
 
+  def self.grouped_invoices
+    invoices = all.group_by(&:id)
+    grouped_invoices = invoices.map { |_, invoices| invoices.first }
+    grouped_invoices
   end
 end

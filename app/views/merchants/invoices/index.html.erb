@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @merchant.invoices.each do |invoice| %>
+   <% @invoices.each do |invoice| %>
       <tr>
         <td><%= invoice.customer_id %></td>
         <td><%= link_to "#{invoice.id}", merchant_invoice_path(@merchant, invoice), method: :get %></td>

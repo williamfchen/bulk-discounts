@@ -14,7 +14,7 @@ RSpec.describe Merchant, type: :model do
 
     merchant_1 = Merchant.create(name: "Merchant 1")
 
-    item_1 = Item.create(name: "Item 1", description: "Item 1 description", unit_price: 100, merchant_id: merchant_1)
+    item_1 = Item.create(name: "Item 1", description: "Item 1 description", unit_price: 100, merchant_id: merchant_1.id)
 
     customer_1 = Customer.create(first_name: "Erica", last_name:"One")
     customer_2 = Customer.create(first_name: "Noelle", last_name:"Two")
@@ -30,12 +30,12 @@ RSpec.describe Merchant, type: :model do
     invoice_5 = Invoice.create(customer_id: customer_5.id, status: 1)
     invoice_6 = Invoice.create(customer_id: customer_6.id, status: 1)
 
-    invoice_items_1 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_1.id, quantity: 1, unit_price: 100)
-    invoice_items_2 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_2.id, quantity: 2, unit_price: 200)
-    invoice_items_3 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_3.id, quantity: 3, unit_price: 300)
-    invoice_items_4 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_4.id, quantity: 3, unit_price: 300)
-    invoice_items_5 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_5.id, quantity: 3, unit_price: 300)
-    invoice_items_6 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_6.id, quantity: 3, unit_price: 300)
+    invoice_items_1 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_1.id, quantity: 1, unit_price: 100, status: 1)
+    invoice_items_2 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_2.id, quantity: 2, unit_price: 200, status: 1)
+    invoice_items_3 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_3.id, quantity: 3, unit_price: 300, status: 1)
+    invoice_items_4 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_4.id, quantity: 3, unit_price: 300, status: 1)
+    invoice_items_5 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_5.id, quantity: 3, unit_price: 300, status: 1)
+    invoice_items_6 = InvoiceItem.create(item_id: item_1.id, invoice_id: invoice_6.id, quantity: 3, unit_price: 300, status: 1)
 
     transaction_1 = Transaction.create(invoice_id: invoice_1.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 1)
     transaction_2 = Transaction.create(invoice_id: invoice_2.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 1)
@@ -58,8 +58,17 @@ RSpec.describe Merchant, type: :model do
     transaction_19 = Transaction.create(invoice_id: invoice_6.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 1)
     transaction_20 = Transaction.create(invoice_id: invoice_6.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 1)
     transaction_21 = Transaction.create(invoice_id: invoice_6.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 1)
-
-    expect(merchant_1.top_five_customers).to eq([customer_6, customer_5, customer_4, customer_3, customer_2])
+    # require 'pry';binding.pry
+    expect(merchant_1.top_five_customers[0]).to eq(customer_6)
+    expect(customer_6.transaction_count).to eq(6)
+    expect(merchant_1.top_five_customers[1]).to eq(customer_5)
+    expect(customer_5.transaction_count).to eq(5)
+    expect(merchant_1.top_five_customers[2]).to eq(customer_4)
+    expect(customer_4.transaction_count).to eq(4)
+    expect(merchant_1.top_five_customers[3]).to eq(customer_3)
+    expect(customer_3.transaction_count).to eq(3)
+    expect(merchant_1.top_five_customers[4]).to eq(customer_2)
+    expect(customer_2.transaction_count).to eq(2)
     end
   end
 end

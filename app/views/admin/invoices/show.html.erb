@@ -3,6 +3,8 @@
 <h4>Invoice #<%= @invoice.id %></h4>
 <p>Status: <%= @invoice.status %></p>
 <p>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %>
+<p>Total Revenue: <%= number_to_currency(@invoice.total_revenue) %>
+
 
 <h4>Customer:</h4>
 <p><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %> </p>

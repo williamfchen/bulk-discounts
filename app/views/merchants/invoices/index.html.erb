@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @merchant.invoices.each do |invoice| %>
+    <% @invoices.each do |invoice| %>
       <tr>
         <td><%= invoice.customer_id %></td>
         <td><%= link_to "#{invoice.id}", merchant_invoice_path(@merchant, invoice), method: :get %></td>
@@ -21,3 +21,20 @@
     <% end %>
   </tbody>
 </table>
+
+<h1>Top 5 Customers</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Number of Successful Transactions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @top_five_customers.each do |customer| %>
+      <tr>
+        <td><%= customer.first_name %> <%= customer.last_name %></td>
+        <td><%= customer.successful_transactions %></td>
+      </tr>
+    <% end %>
+  </tbody>

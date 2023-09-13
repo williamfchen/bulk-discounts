@@ -13,3 +13,5 @@ class InvoiceItem < ApplicationRecord
     unit_price / 100.0
   end
 end
+
+

@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   validates :description, presence: true 
   validates :unit_price, presence: true
   validates :merchant_id, presence: true
+  enum :status,["disabled", "enabled"]
 
   def formatted_unit_price
     dollars = unit_price / 100.0

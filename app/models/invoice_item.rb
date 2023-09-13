@@ -8,4 +8,10 @@ class InvoiceItem < ApplicationRecord
   validates :status, presence: true
 
   enum :status,["packaged", "pending", "shipped"]
+
+  def formatted_unit_price
+    dollars = unit_price / 100.0
+    formatted = sprintf('%.2f', dollars)
+    "$#{formatted}"
+  end
 end

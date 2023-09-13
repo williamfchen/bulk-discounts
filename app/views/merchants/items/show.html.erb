@@ -1,5 +1,11 @@
 <h1><center><%= @item.name %></center></h1>
 
+<% if flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
 <!--<p><strong>Name:</strong> <%= @item.name %></p>-->
 <p><strong>description:</strong> <%= @item.description %></p>
 <p><strong>Price:</strong> <%= @item.formatted_unit_price %></p>

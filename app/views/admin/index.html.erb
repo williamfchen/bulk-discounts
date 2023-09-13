@@ -1,6 +1,17 @@
-<h1>Admin Dashboard</h1>
+<h1>Little Esty Shop</h1>
+
+<p>Admin Dashboard</p>
 
 <section class="links">
 <p><%= link_to "Merchants", admin_merchants_path %></p>
 <p><%= link_to "Invoices", admin_invoices_path %></p>
+</section>
+
+
+<section class="top_customers">
+<h3> Top Customers</h3>
+
+<% @customers.top_customer.each do |customer| %>
+  <p><%= customer.first_name %> <%= customer.last_name %> - <%= customer.transaction_count %> Purchases</p>
+<% end %>
 </section>

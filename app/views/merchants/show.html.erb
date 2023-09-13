@@ -10,10 +10,12 @@
   </thead>
   <tbody>
     <% @merchant.top_five_customers.each do |customer| %>
+    <section id="top5-<%= customer.id %>">
       <tr>
         <td><center><%= customer.first_name %> <%= customer.last_name %></center></td>
         <td><center><%= customer.transaction_count %><c/enter></td>
       </tr>
+    </section>
     <% end %>
   </tbody>
 </table>

@@ -4,7 +4,7 @@ RSpec.feature "the admin index page" do
   describe 'when visiting /admin' do
     it 'US19 shows a header indicating that we are on the admin dashboard' do
 
-      visit "/admin"
+      visit admin_path
 
       expect(page).to have_content("Admin Dashboard")
     end
@@ -13,17 +13,17 @@ RSpec.feature "the admin index page" do
   describe 'when visiting /admin' do
     it 'US20 shows a link to /admin/merchants and /admin/invoices' do
 
-      visit "/admin"
+      visit admin_path
 
       expect(page).to have_content("Admin Dashboard")
       within (".links") do
         expect(page).to have_link("Merchants")
         expect(page).to have_link("Invoices")
         click_link("Merchants")
-        expect(page).to have_current_path("/admin/merchants")
-        visit "/admin"
+        expect(page).to have_current_path(admin_merchants_path)
+        visit admin_path
         click_link("Invoices")
-        expect(page).to have_current_path("/admin/invoices")
+        expect(page).to have_current_path(admin_invoices_path)
       end
     end
   end
@@ -81,7 +81,7 @@ RSpec.feature "the admin index page" do
         transaction_19 = Transaction.create(invoice: invoice_18, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: 1 )
         transaction_20 = Transaction.create(invoice: invoice_18, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: 1 )
         transaction_21 = Transaction.create(invoice: invoice_18, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: 1 )
-        visit "/admin"
+        visit admin_path
 
         within (".top_customers") do
           expect(page).to have_content("Top Customers")
@@ -114,12 +114,15 @@ RSpec.feature "the admin index page" do
         invoice_item_5 = InvoiceItem.create(item: item_1, invoice: invoice_3, quantity: 23, unit_price: 34343, status: 2)
         invoice_item_6 = InvoiceItem.create(item: item_2, invoice: invoice_3, quantity: 23, unit_price: 34343, status: 2)
         
-        visit "/admin"
+        visit admin_path
         within (".incomplete_invoices") do
           expect(page).to have_content("Incomplete Invoices")
           expect(page).to_not have_content(invoice_3.id)
           expect(page).to have_content("Invoice Number #{invoice_1.id} - #{invoice_1.created_at}")
           expect(page).to have_content("Invoice Number #{invoice_2.id} - #{invoice_2.created_at}")
+          expect(page).to have_link("#{invoice_2.id}")
+          click_link("#{invoice_2.id}")
+          expect(page).to have_current_path(admin_invoice_path(invoice_2.id))
 
         end
 

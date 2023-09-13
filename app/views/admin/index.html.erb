@@ -15,3 +15,11 @@
   <p><%= customer.first_name %> <%= customer.last_name %> - <%= customer.transaction_count %> Purchases</p>
 <% end %>
 </section>
+
+<section class="incomplete_invoices">
+<h3> Incomplete Invoices</h3>
+
+<% @invoices.incomplete_invoices.each do |invoice| %>
+  <p>Invoice Number <%= link_to "#{invoice.id}", "/admin/invoice/#{invoice.id}" %> - <%= invoice.created_at%> 
+<% end %>
+</section>

@@ -7,4 +7,14 @@ class Invoice < ApplicationRecord
   validates :status, presence: true
 
   enum :status,["in progress", "completed", "cancelled"]
+
+  def self.incomplete_invoices
+    Invoice
+    .joins(:invoice_items)
+    .select('invoices.*')
+    .where.not('invoice_items.status = ?', 2)
+    .group('invoices.id')
+    .order(:id)
+
+  end
 end

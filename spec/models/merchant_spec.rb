@@ -59,16 +59,17 @@ RSpec.describe Merchant, type: :model do
     transaction_20 = Transaction.create(invoice_id: invoice_6.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 1)
     transaction_21 = Transaction.create(invoice_id: invoice_6.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 1)
     # require 'pry';binding.pry
+    expect(merchant_1.top_five_customers).to eq([customer_6, customer_5, customer_4, customer_3, customer_2])
     expect(merchant_1.top_five_customers[0]).to eq(customer_6)
-    expect(customer_6.transaction_count).to eq(6)
+    expect(merchant_1.top_five_customers[0].transaction_count).to eq(6)
     expect(merchant_1.top_five_customers[1]).to eq(customer_5)
-    expect(customer_5.transaction_count).to eq(5)
+    expect(merchant_1.top_five_customers[1].transaction_count).to eq(5)
     expect(merchant_1.top_five_customers[2]).to eq(customer_4)
-    expect(customer_4.transaction_count).to eq(4)
+    expect(merchant_1.top_five_customers[2].transaction_count).to eq(4)
     expect(merchant_1.top_five_customers[3]).to eq(customer_3)
-    expect(customer_3.transaction_count).to eq(3)
+    expect(merchant_1.top_five_customers[3].transaction_count).to eq(3)
     expect(merchant_1.top_five_customers[4]).to eq(customer_2)
-    expect(customer_2.transaction_count).to eq(2)
+    expect(merchant_1.top_five_customers[4].transaction_count).to eq(2)
     end
   end
 end

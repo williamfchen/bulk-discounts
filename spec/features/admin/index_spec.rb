@@ -118,8 +118,8 @@ RSpec.feature "the admin index page" do
         within (".incomplete_invoices") do
           expect(page).to have_content("Incomplete Invoices")
           expect(page).to_not have_content(invoice_3.id)
-          expect(page).to have_content("Invoice Number #{invoice_1.id}")
-          expect(page).to have_content("Invoice Number #{invoice_2.id}")
+          expect(page).to have_content("Invoice ##{invoice_1.id}")
+          expect(page).to have_content("Invoice ##{invoice_2.id}")
           expect(page).to have_link("#{invoice_2.id}")
           click_link("#{invoice_2.id}")
           expect(page).to have_current_path(admin_invoice_path(invoice_2.id))
@@ -152,8 +152,8 @@ RSpec.feature "the admin index page" do
           expect(page).to have_content("Incomplete Invoices")
           expect(page).to_not have_content(invoice_3.id)
           expect(page).to_not have_content(invoice_3.id)
-          expect(page).to have_content("Invoice Number #{invoice_1.id} - #{invoice_1.created_at.strftime("%A, %B %d, %Y")}")
-          expect(page).to have_content("Invoice Number #{invoice_2.id} - #{invoice_2.created_at.strftime("%A, %B %d, %Y")}")
+          expect(page).to have_content("Invoice ##{invoice_1.id} - #{invoice_1.created_at.strftime("%A, %B %d, %Y")}")
+          expect(page).to have_content("Invoice ##{invoice_2.id} - #{invoice_2.created_at.strftime("%A, %B %d, %Y")}")
 
         end
       end

@@ -9,7 +9,7 @@
   <tbody>
     <% @merchants.each do |merchant| %>
       <tr>
-        <td><%= merchant.name %></td>
+        <td><%= link_to merchant.name, admin_merchant_path(merchant) %></td>
       </tr>
     <% end %>
   </tbody>

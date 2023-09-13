@@ -9,9 +9,7 @@ class InvoiceItem < ApplicationRecord
 
   enum :status,["packaged", "pending", "shipped"]
 
-  def formatted_unit_price
-    dollars = unit_price / 100.0
-    formatted = sprintf('%.2f', dollars)
-    "$#{formatted}"
+  def unit_price_to_decimal
+    unit_price / 100.0
   end
 end

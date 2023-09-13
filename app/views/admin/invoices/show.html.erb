@@ -23,7 +23,7 @@
       <tr>
         <td><%= item.item.name %></td>
         <td><%= item.quantity %></td>
-        <td><%= item.formatted_unit_price %></td>
+        <td><%= number_to_currency(item.unit_price_to_decimal) %></td>
         <td><%= item.status %></td>
       </tr>
     <% end %>

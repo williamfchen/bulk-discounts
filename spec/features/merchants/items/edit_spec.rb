@@ -16,7 +16,7 @@ RSpec.describe 'merchant item edit page' do
       expect(page).to have_content("Edit #{@item_1.name}")
       expect(page).to have_field(:name, with: @item_1.name)
       expect(page).to have_field(:description, with: @item_1.description)
-      expect(page).to have_field(:unit_price, with: @item_1.formatted_unit_price)
+      expect(page).to have_field(:unit_price, with: @item_1.unit_price)
       expect(page).to have_button("Update Item")
 
       fill_in(:name, with: "Not Bracelet")

@@ -17,6 +17,9 @@ class Admin::MerchantsController < ApplicationController
         merchant.update(merchant_params)
         redirect_to admin_merchant_path(merchant)
         flash[:success] = "Merchant was successfully updated"
+      elsif params[:enabled].present?
+        merchant.update(merchant_params)
+        redirect_to admin_merchants_path
       else 
         redirect_to edit_admin_merchant_path(merchant)
         flash[:error] = "Please fill in the name"
@@ -24,6 +27,6 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def merchant_params
-    params.permit(:name)
+    params.permit(:name, :enabled)
   end
 end

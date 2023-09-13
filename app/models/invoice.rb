@@ -17,9 +17,8 @@ class Invoice < ApplicationRecord
     .order(:id)
   end
 
-  def self.grouped_invoices
-    invoices = all.group_by(&:id)
-    grouped_invoices = invoices.map { |_, invoices| invoices.first }
-    grouped_invoices
+  def self.group_by_id
+    group(:id)
   end
+
 end

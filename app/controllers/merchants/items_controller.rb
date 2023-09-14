@@ -12,6 +12,11 @@ class Merchants::ItemsController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
+  def create
+    merchant = Merchant.find(params[:merchant_id])
+    item = merchant.items.create(item_params)
+  end
+
   def update
     if params[:status].present?
       item = Item.find(params[:item_id])
@@ -29,6 +34,6 @@ class Merchants::ItemsController < ApplicationController
   private
   
   def item_params
-    params.permit(:name, :description, :unit_price)
+    params.permit(:name, :description, :unit_price, :status)
   end
 end

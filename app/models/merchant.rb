@@ -14,4 +14,12 @@ class Merchant < ApplicationRecord
       .order(transaction_count: :desc)
       .limit(5)
   end
+  
+  def self.enabled
+    where(enabled: true)
+  end
+
+  def self.disabled
+    where(enabled: false)
+  end
 end

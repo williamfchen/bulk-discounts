@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+
+ /* Style for tables */
+.table-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}

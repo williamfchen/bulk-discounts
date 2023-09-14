@@ -13,10 +13,17 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def update
-    item = Item.find(params[:item_id])
-    item.update(item_params)
-    redirect_to merchant_item_path(params[:merchant_id], params[:item_id])
-    flash[:success] = "Item successfully updated!"
+    if params[:status].present?
+      item = Item.find(params[:item_id])
+      # require 'pry';binding.pry
+      item.update(status: params[:status].to_i)
+      redirect_to merchant_items_path(params[:merchant_id])
+    else
+      item = Item.find(params[:item_id])
+      item.update(item_params)
+      redirect_to merchant_item_path(params[:merchant_id], params[:item_id])
+      flash[:success] = "Item successfully updated!"
+    end 
   end
 
   private

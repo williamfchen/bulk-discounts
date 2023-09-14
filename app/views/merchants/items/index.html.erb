@@ -6,7 +6,6 @@
     <tbody>
       <% @merchant.items.each do |item| %>
         <% if item.status == "disabled" %>
-        <section id="merchant_item-<%=item.id%>">
           <%= render partial: "item", locals: { item: item, merchant: @merchant } %>
         <% end %>
       <% end %>
@@ -21,9 +20,7 @@
   <tbody>
     <% @merchant.items.each do |item| %>
       <% if item.status == "enabled" %>
-      <section id="merchant_item-<%=item.id%>">
         <%= render partial: "item", locals: { item: item, merchant: @merchant } %>
-      </section>
       <% end %>
     <% end %>
   </tbody>

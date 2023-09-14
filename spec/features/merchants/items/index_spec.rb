@@ -31,42 +31,45 @@ RSpec.feature "the merchant items index page" do
       expect(page).to have_content(@item_1.formatted_unit_price)
     end
 
-    xit "US9/US10 buttons to enable/disable an item" do
-      visit merchant_items_path(@merchant_1)
+    it "US9/US10 buttons to enable/disable an item" do
+      merchant_1 = Merchant.create!(name: "Bracelets 'n Stuff")
+      item_1 = merchant_1.items.create!(name: "Bracelet", description: "Shiny", unit_price: 1000, status: 0)
+
+      visit merchant_items_path(merchant_1)
     
       within "#disabled_items" do
-        within "#merchant_item-#{@item_1.id}" do
-          expect(page).to have_content(@item_1.name)
-          expect(@item_1.status).to eq("disabled")
+        within "#merchant_item-#{item_1.id}" do
+          expect(page).to have_content(item_1.name)
+          expect(item_1.status).to eq("disabled")
           expect(page).to have_content("disabled")
           expect(page).to have_button("Enable Item")
           expect(page).to have_button("Disable Item")
           click_button("Enable Item")
-          expect(current_path).to eq(merchant_items_path(@merchant_1))
+          expect(current_path).to eq(merchant_items_path(merchant_1))
+          item_1.reload
         end
       end
-      @item_1.reload
 
       within "#enabled_items" do
-        within "#merchant_item-#{@item_1.id}" do
-          expect(page).to have_content(@item_1.name)
-          expect(@item_1.status).to eq("enabled")
+        within "#merchant_item-#{item_1.id}" do
+          expect(page).to have_content(item_1.name)
+          expect(item_1.status).to eq("enabled")
           expect(page).to have_content("enabled")
           expect(page).to have_button("Enable Item")
           expect(page).to have_button("Disable Item")
           click_button("Disable Item")
+          item_1.reload
         end
       end
-      @item_1.reload
 
       within "#disabled_items" do
-        within "#merchant_item-#{@item_1.id}" do
-          expect(page).to have_content(@item_1.name)
-          expect(@item_1.status).to eq("disabled")
+        within "#merchant_item-#{item_1.id}" do
+          expect(page).to have_content(item_1.name)
+          expect(item_1.status).to eq("disabled")
           expect(page).to have_content("disabled")
           expect(page).to have_button("Enable Item")
           expect(page).to have_button("Disable Item")
-        @item_1.reload
+        item_1.reload
         end
       end
     end

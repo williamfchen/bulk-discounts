@@ -13,4 +13,20 @@ RSpec.describe InvoiceItem, type: :model do
     it { should validate_presence_of :invoice_id }
     it { should validate_presence_of :item_id }
   end
+
+  describe '#unit_price_to_decimal' do
+    it "formats the unit price of an invoice item" do
+      customer_1 = Customer.create(first_name: "Joey", last_name:"One")
+      merchant_1 = Merchant.create(name: "merchant1")
+      item_1 = Item.create(name: "item1", description: "1", unit_price: 2145, merchant: merchant_1)
+      item_2 = Item.create(name: "item2", description: "1", unit_price: 2145, merchant: merchant_1)
+
+      invoice_1 = Invoice.create(customer: customer_1, status: 0)
+
+      invoice_item_1 = InvoiceItem.create(item: item_1, invoice: invoice_1, quantity: 23, unit_price: 34343, status: 0)
+      invoice_item_2 = InvoiceItem.create(item: item_2, invoice: invoice_1, quantity: 23, unit_price: 34343, status: 1)
+
+      expect(invoice_item_1.unit_price_to_decimal).to eq(343.43)
+    end
+  end
 end

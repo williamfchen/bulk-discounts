@@ -6,15 +6,18 @@
     <caption><h3> Top Customers</h3></caption>
       <thead>
         <tr>
+          <th> # </th>
           <th> Customer Name </th>
           <th> Number of Purchases </th>
         </tr>
       </thead>
       <tbody>
+        <% index = 0 %>
         <% @customers.top_customer.each do |customer| %>
           <tr>
-            <td><%= customer.first_name %> <%= customer.last_name %></td>
-            <td><center><%= customer.transaction_count %> Purchases</center></td>
+              <td><%= index += 1 %>.</td>
+              <td><%= customer.first_name %> <%= customer.last_name %></td>
+              <td><center><%= customer.transaction_count %> Purchases</center></td>
           </tr>
         <% end %>
       </tbody>

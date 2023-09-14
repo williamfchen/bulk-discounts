@@ -7,7 +7,7 @@ class Merchant < ApplicationRecord
 
   def top_five_customers
     self.customers
-      .select('customers.*, count(transactions.*) AS transaction_count')
+      .select('customers.*, count(DISTINCT transactions.*) AS transaction_count')
       .where('transactions.result = 1')
       .joins(invoices: :transactions)
       .group('customers.id')

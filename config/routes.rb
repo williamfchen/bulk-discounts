@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "/merchants/:merchant_id/dashboard", to: "merchants#show"
   get "/merchants/:merchant_id/items", to: "merchants/items#index"
+  patch "/merchants/:merchant_id/items/status", to: "merchants/items#activate", as: :status_merchant_item
   get "merchants/:merchant_id/items/:item_id", to: "merchants/items#show", as: :merchant_item
   get "/merchants/:merchant_id/items/:item_id/edit", to: "merchants/items#edit", as: :edit_merchant_item
   patch "/merchants/:merchant_id/items/:item_id", to: "merchants/items#update"

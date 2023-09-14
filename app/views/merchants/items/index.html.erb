@@ -15,19 +15,19 @@
 
 <h1><center>Enabled Items</center></h1>
 <section id="enabled_items">
-<table>
-  <%= render partial: "table_head" %>
-  <tbody>
-    <% @merchant.items.each do |item| %>
-      <% if item.status == "enabled" %>
-        <%= render partial: "item", locals: { item: item, merchant: @merchant } %>
+  <table>
+    <%= render partial: "table_head" %>
+    <tbody>
+      <% @merchant.items.each do |item| %>
+        <% if item.status == "enabled" %>
+          <%= render partial: "item", locals: { item: item, merchant: @merchant } %>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 </section>
 <br>
 <br>
-<br>
+<br>  
 
 <center><%= button_to "Create New Item", "/merchants/#{@merchant.id}/items/new", method: :get%></center>

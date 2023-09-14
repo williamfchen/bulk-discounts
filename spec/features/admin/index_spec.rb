@@ -19,11 +19,14 @@ RSpec.feature "the admin index page" do
       within (".links") do
         expect(page).to have_link("Merchants")
         expect(page).to have_link("Invoices")
+        expect(page).to have_link("Dashboard")
         click_link("Merchants")
         expect(page).to have_current_path(admin_merchants_path)
         visit admin_path
         click_link("Invoices")
         expect(page).to have_current_path(admin_invoices_path)
+        click_link("Dashboard")
+        expect(page).to have_current_path(admin_path)
       end
     end
   end
@@ -87,16 +90,16 @@ RSpec.feature "the admin index page" do
           expect(page).to have_content("Top Customers")
           expect(page).to_not have_content(customer_3.first_name)
 
-          expect("Jackson Five - 6 Purchases").to appear_before("Jerry Four - 5 Purchases")
-          expect("Jerry Four - 5 Purchases").to appear_before("Jojo Six - 4 Purchases")
-          expect("Jojo Six - 4 Purchases").to appear_before("John Two - 3 Purchases")
-          expect("John Two - 3 Purchases").to appear_before("Joey One - 2 Purchases")
+          expect("Jackson Five").to appear_before("Jerry Four")
+          expect("Jerry Four").to appear_before("Jojo Six")
+          expect("Jojo Six").to appear_before("John Two")
+          expect("John Two").to appear_before("Joey One")
         end
       end
     end
   end
   describe 'when visiting /admin' do
-    describe 'US22 shows a section for incomplete invoices that shows a list of all invoice:  ids that have not yet been shipped' do
+    describe 'US22 shows a section for incomplete invoices that shows a list of all invoice ids that have not yet been shipped' do
       it "each invoice:  id links to that invoice: 's admin show page" do
         customer_1 = Customer.create(first_name: "Joey", last_name:"One")
         merchant_1 = Merchant.create(name: "merchant1")
@@ -119,10 +122,14 @@ RSpec.feature "the admin index page" do
           expect(page).to have_content("Incomplete Invoices")
           expect(page).to_not have_content(invoice_3.id)
           expect(page).to have_content("Invoice ##{invoice_1.id}")
+          expect(page).to have_content("Invoice ##{invoice_1.id}")
           expect(page).to have_content("Invoice ##{invoice_2.id}")
           expect(page).to have_link("#{invoice_2.id}")
           click_link("#{invoice_2.id}")
           expect(page).to have_current_path(admin_invoice_path(invoice_2.id))
+          visit admin_path
+          click_link("#{invoice_1.id}")
+          expect(page).to have_current_path(admin_invoice_path(invoice_1.id))
         end
       end
     end
@@ -152,9 +159,10 @@ RSpec.feature "the admin index page" do
           expect(page).to have_content("Incomplete Invoices")
           expect(page).to_not have_content(invoice_3.id)
           expect(page).to_not have_content(invoice_3.id)
-          expect(page).to have_content("Invoice ##{invoice_1.id} - #{invoice_1.created_at.strftime("%A, %B %d, %Y")}")
-          expect(page).to have_content("Invoice ##{invoice_2.id} - #{invoice_2.created_at.strftime("%A, %B %d, %Y")}")
-
+          expect(page).to have_content("Invoice ##{invoice_1.id}")
+          expect(page).to have_content("#{invoice_1.created_at.strftime("%A, %B %d, %Y")}")
+          expect(page).to have_content("Invoice ##{invoice_2.id}")
+          expect(page).to have_content("#{invoice_2.created_at.strftime("%A, %B %d, %Y")}")
         end
       end
     end

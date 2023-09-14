@@ -1,4 +1,24 @@
 <h1><center><%= @merchant.name %> Items</center></h1>
+
+<h3>Most Popular Items</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Total Revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @popular_items.each do |item| %>
+      <tr>
+        <td><%= link_to "#{item.name}", merchant_item_path(@merchant, item), method: :get %></td>
+
+        <td><%= number_to_currency(item.revenue / 100.0) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
   <h1><center>Disabled Items</center></h1>
 <section id="disabled_items">
   <table>
@@ -31,3 +51,5 @@
 <br>  
 
 <center><%= button_to "Create New Item", "/merchants/#{@merchant.id}/items/new", method: :get%></center>
+
+

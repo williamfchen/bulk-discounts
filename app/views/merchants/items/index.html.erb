@@ -7,6 +7,7 @@
       <th>Unit Price</th>
       <th>Created at</th>
       <th>Updated at</th>
+      <th>Status</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +18,9 @@
         <td><%= item.formatted_unit_price %></td>
         <td><%= item.created_at %></td>
         <td><%= item.updated_at %></td>
+        <td><%= item.status %></td>
+        <td><%= button_to "Enable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 1 }, data:{turbo: false}  %></td>
+        <td><%= button_to "Disable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 0 }, data:{turbo: false}  %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,4 +1,5 @@
 <h1><center><%= @merchant.name %> Items</center></h1>
+<h1><center>Disabled Items</center></h1>
 <table>
   <thead>
     <tr>
@@ -12,16 +13,48 @@
   </thead>
   <tbody>
     <% @merchant.items.each do |item| %>
-      <tr>
-        <td><%= link_to "#{item.name}", merchant_item_path(@merchant, item), method: :get %></td>
-        <td><%= item.description %></td>
-        <td><%= item.formatted_unit_price %></td>
-        <td><%= item.created_at %></td>
-        <td><%= item.updated_at %></td>
-        <td><%= item.status %></td>
-        <td><%= button_to "Enable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 1 }, data:{turbo: false}  %></td>
-        <td><%= button_to "Disable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 0 }, data:{turbo: false}  %></td>
-      </tr>
+      <% if item.status == "disabled" %>
+        <tr>
+          <td><%= link_to "#{item.name}", merchant_item_path(@merchant, item), method: :get %></td>
+          <td><%= item.description %></td>
+          <td><%= item.formatted_unit_price %></td>
+          <td><%= item.created_at %></td>
+          <td><%= item.updated_at %></td>
+          <td><%= item.status %></td>
+          <td><%= button_to "Enable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 1 }, data:{turbo: false}  %></td>
+          <td><%= button_to "Disable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 0 }, data:{turbo: false}  %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<h1><center>Enabled Items</center></h1>
+<table>
+ <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Description</th>
+      <th>Unit Price</th>
+      <th>Created at</th>
+      <th>Updated at</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @merchant.items.each do |item| %>
+      <% if item.status == "enabled" %>
+        <tr>
+          <td><%= link_to "#{item.name}", merchant_item_path(@merchant, item), method: :get %></td>
+          <td><%= item.description %></td>
+          <td><%= item.formatted_unit_price %></td>
+          <td><%= item.created_at %></td>
+          <td><%= item.updated_at %></td>
+          <td><%= item.status %></td>
+          <td><%= button_to "Enable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 1 }, data:{turbo: false}  %></td>
+          <td><%= button_to "Disable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 0 }, data:{turbo: false}  %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

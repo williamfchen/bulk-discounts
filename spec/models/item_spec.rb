@@ -13,4 +13,13 @@ RSpec.describe Item, type: :model do
     it { should validate_presence_of :unit_price }
     it { should validate_presence_of :merchant_id }
   end
+
+  describe instance_methods do 
+    it "#formatted_unit_price" do
+      merchant = Merchant.create!(name: "Bracelets 'n Stuff")
+      item = merchant.items.create!(name: "Bracelet", description: "Shiny", unit_price: 1000)
+
+      expect(item.formatted_unit_price).to eq("$10.00")
+    end
+  end
 end

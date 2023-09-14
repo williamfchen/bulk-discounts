@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <% @customers.top_customer.each do |customer| %>
-          <tr id="top_customers=<% customer.id %>">
+          <tr>
             <td><%= customer.first_name %> <%= customer.last_name %></td>
             <td><center><%= customer.transaction_count %> Purchases</center></td>
           </tr>

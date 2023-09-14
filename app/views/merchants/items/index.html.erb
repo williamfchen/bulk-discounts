@@ -57,28 +57,4 @@
 
 <center><%= button_to "Create New Item", "/merchants/#{@merchant.id}/items/new", method: :get%></center>
 
-<h3>All Items</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Unit Price</th>
-      <th>Created at</th>
-      <th>Updated at</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @merchant.items.each do |item| %>
-      <tr>
-        <td><%= link_to "#{item.name}", merchant_item_path(@merchant, item), method: :get %></td>
-        <td><%= item.description %></td>
-        <td><%= item.formatted_unit_price %></td>
-        <td><%= item.created_at %></td>
-        <td><%= item.updated_at %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
 

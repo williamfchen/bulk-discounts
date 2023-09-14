@@ -1,16 +1,47 @@
 <h1><center>Merchant Index</center></h1>
-<table>
-  <thead>
-    <tr>
-      <th>Merchant Name</th>
 
-    </tr>
-  </thead>
-  <tbody>
-    <% @merchants.each do |merchant| %>
+<div class="table-container">
+  <table class="enabled">
+    <caption>Enabled Merchants</caption>
+    <thead>
       <tr>
-        <td><%= link_to merchant.name, admin_merchant_path(merchant) %></td>
+        <th>Merchant Name</th>
+        <th>Status</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @merchants.enabled.each do |merchant| %>
+        <tr id="enabled-merchant-<%= merchant.id %>">
+          <td><%= link_to merchant.name, admin_merchant_path(merchant) %></td>
+          <td>Enabled</td>
+          <td>
+            <%= button_to "Disable Merchant", admin_merchant_path(merchant), method: :patch, params: { enabled: false } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table class="disabled">
+    <caption>Disabled Merchants</caption>
+    <thead>
+      <tr>
+        <th>Merchant Name</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @merchants.disabled.each do |merchant| %>
+        <tr id="disabled-merchant-<%= merchant.id %>">
+          <td><%= link_to merchant.name, admin_merchant_path(merchant) %></td>
+          <td>Disabled</td>
+          <td>
+            <%= button_to "Enable Merchant", admin_merchant_path(merchant), method: :patch, params: { enabled: true } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

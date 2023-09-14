@@ -14,10 +14,17 @@ class Invoice < ApplicationRecord
     .select('invoices.*')
     .where.not('invoice_items.status = ?', 2)
     .group('invoices.id')
-    .order(:id)
+    .order(:created_at)
   end
+
+  def total_revenue
+    invoice_items.sum("unit_price * quantity") / 100.0
+  end
+
 
   def self.group_by_id
     group(:id)
   end
 end
+
+

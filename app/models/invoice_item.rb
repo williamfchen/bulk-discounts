@@ -9,6 +9,10 @@ class InvoiceItem < ApplicationRecord
 
   enum :status,["packaged", "pending", "shipped"]
 
+  def unit_price_to_decimal
+    unit_price / 100.0
+  end
+  
   # def self.successful_average_item_price
   #   InvoiceItem
   #     .joins(invoices: :transactions)
@@ -23,3 +27,5 @@ class InvoiceItem < ApplicationRecord
   #     .where('transactions.result = ?', 1)
   # end
 end
+
+

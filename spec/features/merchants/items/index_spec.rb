@@ -4,9 +4,9 @@ RSpec.feature "the merchant items index page" do
     before :each do
       @merchant_1 = Merchant.create!(name: "Bracelets 'n Stuff")
       @merchant_2 = Merchant.create!(name: "Necklaces 'n Stuff")
-      @item_1 = @merchant_1.items.create!(name: "Bracelet", description: "Shiny", unit_price: 1000)
-      @item_2 = @merchant_1.items.create!(name: "Necklace", description: "Shiny", unit_price: 2000)
-      @item_3 = @merchant_2.items.create!(name: "Ring", description: "Shiny", unit_price: 3000)
+      @item_1 = @merchant_1.items.create!(name: "Bracelet", description: "Shiny", unit_price: 1000, status: 0)
+      @item_2 = @merchant_1.items.create!(name: "Necklace", description: "Shiny", unit_price: 2000, status: 0)
+      @item_3 = @merchant_2.items.create!(name: "Ring", description: "Shiny", unit_price: 3000, status: 0)
     end 
 
   describe 'when visiting /merchants/merchant_id/items' do
@@ -29,6 +29,57 @@ RSpec.feature "the merchant items index page" do
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_1.description)
       expect(page).to have_content(@item_1.formatted_unit_price)
+    end
+
+    it "US9/US10 buttons to enable/disable an item" do
+      merchant_1 = Merchant.create!(name: "Bracelets 'n Stuff")
+      item_1 = merchant_1.items.create!(name: "Bracelet", description: "Shiny", unit_price: 1000, status: 0)
+
+      visit merchant_items_path(merchant_1)
+    
+      within "#disabled_items" do
+        within "#merchant_item-#{item_1.id}" do
+          expect(page).to have_content(item_1.name)
+          expect(item_1.status).to eq("disabled")
+          expect(page).to have_content("disabled")
+          expect(page).to have_button("Enable Item")
+          expect(page).to have_button("Disable Item")
+          click_button("Enable Item")
+          expect(current_path).to eq(merchant_items_path(merchant_1))
+          item_1.reload
+        end
+      end
+
+      within "#enabled_items" do
+        within "#merchant_item-#{item_1.id}" do
+          expect(page).to have_content(item_1.name)
+          expect(item_1.status).to eq("enabled")
+          expect(page).to have_content("enabled")
+          expect(page).to have_button("Enable Item")
+          expect(page).to have_button("Disable Item")
+          click_button("Disable Item")
+          item_1.reload
+        end
+      end
+
+      within "#disabled_items" do
+        within "#merchant_item-#{item_1.id}" do
+          expect(page).to have_content(item_1.name)
+          expect(item_1.status).to eq("disabled")
+          expect(page).to have_content("disabled")
+          expect(page).to have_button("Enable Item")
+          expect(page).to have_button("Disable Item")
+        item_1.reload
+        end
+      end
+    end
+
+    it "US11 has a link to create a new item" do
+      visit merchant_items_path(@merchant_1)
+
+      click_button "Create New Item"
+
+      expect(current_path).to eq(new_merchant_item_path(@merchant_1))
     end
   end
 end

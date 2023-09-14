@@ -26,7 +26,7 @@ RSpec.describe Item, type: :model do
 
   describe 'class methods' do
     describe '#popular_items' do
-      it 'returns the top 5 items by total revenue generated' do
+      it 'US 12 returns the top 5 items by total revenue generated' do
         merchant = create(:merchant)
 
         item1 = create(:item, merchant: merchant)

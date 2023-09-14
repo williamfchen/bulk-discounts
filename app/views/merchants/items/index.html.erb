@@ -1,6 +1,6 @@
 <h1><center><%= @merchant.name %> Items</center></h1>
-<section id="disabled_items">
   <h1><center>Disabled Items</center></h1>
+<section id="disabled_items">
   <table>
     <%= render partial: "table_head" %>
     <tbody>
@@ -14,8 +14,8 @@
   </table>
 </section>
 
-<section id="enabled_items">
 <h1><center>Enabled Items</center></h1>
+<section id="enabled_items">
 <table>
   <%= render partial: "table_head" %>
   <tbody>
@@ -28,6 +28,7 @@
     <% end %>
   </tbody>
 </table>
+</section>
 <br>
 <br>
 <br>

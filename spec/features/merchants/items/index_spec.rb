@@ -31,7 +31,7 @@ RSpec.feature "the merchant items index page" do
       expect(page).to have_content(@item_1.formatted_unit_price)
     end
 
-    xit "US9 buttons to enable/disable an item" do
+    xit "US9/US10 buttons to enable/disable an item" do
 
       within "#disabled_items" do
         within "#merchant_item-#{@item_1.id}" do
@@ -68,6 +68,14 @@ RSpec.feature "the merchant items index page" do
         @item_1.reload
         end
       end
+    end
+
+    it "US11 has a link to create a new item" do
+      visit merchant_items_path(@merchant_1)
+
+      click_button "Create New Item"
+
+      expect(current_path).to eq(new_merchant_item_path(@merchant_1))
     end
   end
 end

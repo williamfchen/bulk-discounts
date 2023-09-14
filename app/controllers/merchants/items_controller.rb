@@ -1,7 +1,7 @@
 class Merchants::ItemsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
-    @popular_items = @merchant.items.popular_items
+    @popular_items = @merchant.popular_items
   end
 
   def show

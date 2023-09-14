@@ -39,6 +39,12 @@ RSpec.feature "the admin/invoices index page" do
       expect(page).to have_link("#{invoice_3.id}")
       click_link("#{invoice_1.id}")
       expect(page).to have_current_path(admin_invoice_path(invoice_1.id))
+      visit admin_invoices_path
+      click_link("#{invoice_2.id}")
+      expect(page).to have_current_path(admin_invoice_path(invoice_2.id))
+      visit admin_invoices_path
+      click_link("#{invoice_2.id}")
+      expect(page).to have_current_path(admin_invoice_path(invoice_2.id))
     end
   end
 end

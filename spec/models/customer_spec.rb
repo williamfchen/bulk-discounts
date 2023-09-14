@@ -64,6 +64,9 @@ RSpec.describe Customer, type: :model do
     transaction_19 = Transaction.create(invoice: invoice_18, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: 1 )
     transaction_20 = Transaction.create(invoice: invoice_18, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: 1 )
     transaction_21 = Transaction.create(invoice: invoice_18, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: 1 )
+    transaction_22 = Transaction.create(invoice: invoice_19, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: 0 )
+    transaction_23 = Transaction.create(invoice: invoice_19, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: 0 )
+    transaction_24 = Transaction.create(invoice: invoice_20, credit_card_number: "4654405418249632", credit_card_expiration_date: "04/27", result: 0 )
     
     expect(Customer.top_customer[0]).to eq(customer_5)
     expect(Customer.top_customer[0].transaction_count).to eq(6)

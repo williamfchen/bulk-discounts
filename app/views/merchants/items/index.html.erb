@@ -1,8 +1,34 @@
 <h1><center><%= @merchant.name %> Items</center></h1>
+
+<h3>Most Popular Items</h3>
 <table>
   <thead>
     <tr>
-      <th>Item Name</th>
+      <th>Name</th>
+      <!- <th>Description</th> ->
+      <!- <th>Average Unit Price</th> ->
+      <!- <th>Total Quantity</th> ->
+      <th>Total Revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @popular_items.each do |item| %>
+      <tr>
+        <td><%= link_to "#{item.name}", merchant_item_path(@merchant, item), method: :get %></td>
+        <!- <td><%= item.description %></td> ->
+        <!- <td><%= number_to_currency(item.invoice_items.successful_average_item_price / 100) %></td> ->
+        <!- <td><%= item.invoice_items.successful_total_item_quantity %></td> ->
+        <td><%= number_to_currency(item.revenue / 100.0) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>All Items</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
       <th>Description</th>
       <th>Unit Price</th>
       <th>Created at</th>

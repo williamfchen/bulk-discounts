@@ -2,31 +2,12 @@
 <section id="disabled_items">
   <h1><center>Disabled Items</center></h1>
   <table>
-    <thead>
-      <tr>
-        <th>Item Name</th>
-        <th>Description</th>
-        <th>Unit Price</th>
-        <th>Created at</th>
-        <th>Updated at</th>
-        <th>Status</th>
-      </tr>
-    </thead>
+    <%= render partial: "table_head" %>
     <tbody>
       <% @merchant.items.each do |item| %>
         <% if item.status == "disabled" %>
         <section id="merchant_item-<%=item.id%>">
-          <tr>
-            <td><%= link_to "#{item.name}", merchant_item_path(@merchant, item), method: :get %></td>
-            <td><%= item.description %></td>
-            <td><%= item.formatted_unit_price %></td>
-            <td><%= item.created_at %></td>
-            <td><%= item.updated_at %></td>
-            <td><%= item.status %></td>
-            <td><%= button_to "Enable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 1 }, data:{turbo: false}  %></td>
-            <td><%= button_to "Disable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 0 }, data:{turbo: false}  %></td>
-          </tr>
-        </section>
+          <%= render partial: "item", locals: { item: item, merchant: @merchant } %>
         <% end %>
       <% end %>
     </tbody>
@@ -36,30 +17,12 @@
 <section id="enabled_items">
 <h1><center>Enabled Items</center></h1>
 <table>
-  <thead>
-    <tr>
-      <th>Item Name</th>
-      <th>Description</th>
-      <th>Unit Price</th>
-      <th>Created at</th>
-      <th>Updated at</th>
-      <th>Status</th>
-    </tr>
-  </thead>
+  <%= render partial: "table_head" %>
   <tbody>
     <% @merchant.items.each do |item| %>
       <% if item.status == "enabled" %>
       <section id="merchant_item-<%=item.id%>">
-        <tr>
-          <td><%= link_to "#{item.name}", merchant_item_path(@merchant, item), method: :get %></td>
-          <td><%= item.description %></td>
-          <td><%= item.formatted_unit_price %></td>
-          <td><%= item.created_at %></td>
-          <td><%= item.updated_at %></td>
-          <td><%= item.status %></td>
-          <td><%= button_to "Enable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 1 }, data:{turbo: false}  %></td>
-          <td><%= button_to "Disable Item", status_merchant_item_path(@merchant, item), method: :patch, params: {item_id: item.id, status: 0 }, data:{turbo: false}  %></td>
-        </tr>
+        <%= render partial: "item", locals: { item: item, merchant: @merchant } %>
       </section>
       <% end %>
     <% end %>

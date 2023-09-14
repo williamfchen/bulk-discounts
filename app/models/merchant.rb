@@ -25,10 +25,12 @@ class Merchant < ApplicationRecord
 
   def popular_items
     items.joins(invoice_items: { invoice: :transactions })
-         .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
+         .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) / 100.0 as revenue')
          .where('transactions.result = ?', 1)
          .group('items.id')
          .order('revenue DESC')
          .limit(5)
   end
+
+  
 end

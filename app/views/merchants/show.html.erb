@@ -33,7 +33,7 @@
     <section id="ready_to_ship_item-<%= item.id %>">
       <tr>
         <td><center><%= item.name %></center></td>
-        <td><center><%= item.invoice_id %></center></td>
+        <td><center><%= link_to "#{item.invoice_id}", merchant_invoice_path(@merchant, item) %></center></td>
       </tr>
     </section>
     <% end %>

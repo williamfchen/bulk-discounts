@@ -1,6 +1,7 @@
 <h1><center><%= @merchant.name %> Dashboard</center></h1>
 <p><center><%= button_to "View Items", "/merchants/#{@merchant.id}/items", method: :get %></center></p><center><%= button_to "View Invoices", "/merchants/#{@merchant.id}/invoices", method: :get %></center>
 <h1>Top 5 Customers</h1>
+<section id="top5-customers">
 <table>
   <thead>
     <tr>
@@ -19,3 +20,28 @@
     <% end %>
   </tbody>
 </table>
+</section>
+
+<h1>Items Ready to Ship</h1>
+<section id="items_ready_to_ship">
+<table>
+  <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Invoice ID</th>
+      <th>Invoice Creation Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @merchant.items_ready_to_ship.each do |item| %>
+    <section id="ready_to_ship_item-<%= item.id %>">
+      <tr>
+        <td><center><%= item.name %></center></td>
+        <td><center><%= link_to "#{item.invoice_id}", merchant_invoice_path(@merchant, item.invoice_id) %></center></td>
+        <td><center><%= item.invoice_created_at.strftime('%A, %b %d, %Y') %></center></td>
+      </tr>
+    </section>
+    <% end %>
+  </tbody>
+</table>
+</section>

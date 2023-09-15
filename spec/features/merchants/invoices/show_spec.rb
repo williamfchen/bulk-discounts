@@ -16,5 +16,36 @@ RSpec.feature "the merchant invoices show page" do
       expect(page).to have_content("Created At: #{invoice.created_at.strftime("%A, %B %d, %Y")}")
       expect(page).to have_content("Customer Name: #{customer.first_name} #{customer.last_name}")
     end
+
+    it 'US16 and 17 displays the item details of the invoice' do
+      merchant = create(:merchant)
+      items = create_list(:item, 3, merchant: merchant)
+      invoice = create(:invoice)
+      invoice_items_0 = create(:invoice_item, item: items[0], invoice: invoice)
+      invoice_items_1 = create(:invoice_item, item: items[1], invoice: invoice)
+      invoice_items_2 = create(:invoice_item, item: items[2], invoice: invoice)
+
+      visit "/merchants/#{merchant.id}/invoices/#{invoice.id}"
+
+      within "#invoice-item-#{invoice_items_0.id}" do
+        expect(page).to have_content(items[0].name)
+        expect(page).to have_content(invoice_items_0.quantity)
+        expect(page).to have_content(invoice_items_0.unit_price / 100.00)
+      end
+
+      within "#invoice-item-#{invoice_items_1.id}" do
+        expect(page).to have_content(items[1].name)
+        expect(page).to have_content(invoice_items_1.quantity)
+        expect(page).to have_content(invoice_items_1.unit_price / 100.00)
+      end
+
+      within "#invoice-item-#{invoice_items_2.id}" do
+        expect(page).to have_content(items[2].name)
+        expect(page).to have_content(invoice_items_2.quantity)
+        expect(page).to have_content(invoice_items_2.unit_price / 100.00)
+      end
+      
+      expect(page).to have_content("Total Revenue of Invoice: $#{invoice.total_revenue}")
+    end
   end
 end

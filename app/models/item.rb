@@ -16,28 +16,9 @@ class Item < ApplicationRecord
     "$#{formatted}"
   end
 
-  def self.popular_items
-    Item
-    .joins(:invoice_items)
-    .joins(invoices: :transactions)
-    .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
-    .where('transactions.result = ?', 1)
-    .group(:id)
-    .order('revenue DESC')
-    .limit(5)
+  #this method is not used in the app, just the merchant items index feature spec
+  def total_revenue
+    revenue = invoice_items.sum('quantity * unit_price / 100.0')
+    sprintf('$%.2f', revenue)
   end
-
-  # def successful_average_item_price
-  #   .joins(:invoice_items)
-  #   .joins(invoices: :transactions)
-  #   .select('items.*, average(invoice_items.unit_price) as price')
-  #   .where('transactions.result = ?', 1)
-  # end
-
-  # def successful_total_item_quantity
-  #   .joins(:invoice_items)
-  #   .joins(invoices: :transactions)
-  #   .select('items.*, sum(invoice_items.quantity)')
-  #   .where('transactions.result = ?', 1)
-  # end
 end

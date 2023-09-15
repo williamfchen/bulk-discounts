@@ -12,20 +12,6 @@ class InvoiceItem < ApplicationRecord
   def unit_price_to_decimal
     unit_price / 100.0
   end
-  
-  # def self.successful_average_item_price
-  #   InvoiceItem
-  #     .joins(invoices: :transactions)
-  #     .select('items.*, average(invoice_items.unit_price) as price')
-  #     .where('transactions.result = ?', 1)
-  # end
-
-  # def self.successful_total_item_quantity
-  #   InvoiceItem
-  #     .joins(invoices: :transactions)
-  #     .select('items.*, average(invoice_items.unit_price) as price')
-  #     .where('transactions.result = ?', 1)
-  # end
 end
 
 

@@ -32,13 +32,14 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
+
   def items_ready_to_ship
     items.joins(:invoices)
     .select('invoices.*, items.*, invoices.id AS invoice_id, invoices.created_at AS invoice_created_at')
     .where.not('invoice_items.status = ?', 2)
     .group('invoices.id, items.id, invoices.created_at')
     .order('invoices.created_at')
-  end
+  end 
 
   def total_revenue
     items.joins(:transactions)

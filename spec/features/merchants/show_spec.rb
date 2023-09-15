@@ -95,4 +95,69 @@ RSpec.feature "the merchant show/dashboard page" do
       end 
     end
   end
+
+  it "US4 Items Ready to ship(items without 'shipped' status on invoice)" do
+    @merchant = create(:merchant)
+    @items = create_list(:item, 5, merchant: @merchant)
+    @invoice_1 = create(:invoice, status: 1)
+    @invoice_2 = create(:invoice, status: 1)
+    @invoice_item_1 = create(:invoice_item, item: @items[0], invoice: @invoice_1, status: 0)
+    @invoice_item_2 = create(:invoice_item, item: @items[1], invoice: @invoice_1, status: 1)
+    @invoice_item_3 = create(:invoice_item, item: @items[2], invoice: @invoice_1, status: 1)
+    @invoice_item_4 = create(:invoice_item, item: @items[3], invoice: @invoice_2, status: 1)
+    @invoice_item_5 = create(:invoice_item, item: @items[4], invoice: @invoice_2, status: 2)
+
+    visit merchant_dashboard_path(@merchant)
+
+    within("#items_ready_to_ship") do
+      expect(page).to have_content(@invoice_item_1.item.name)
+      expect(page).to have_content(@invoice_item_2.item.name)
+      expect(page).to have_content(@invoice_item_3.item.name)
+      expect(page).to have_content(@invoice_item_4.item.name)
+      expect(page).to_not have_content(@invoice_item_5.item.name)
+    end
+  end
+
+  it "US4 has the invoice id linked to the invoice show page" do
+    @merchant = create(:merchant)
+    @items = create_list(:item, 5, merchant: @merchant)
+    @invoice_1 = create(:invoice, created_at: "2012-03-27 14:54:09 UTC", status: 1)
+    @invoice_2 = create(:invoice, created_at: "2013-05-21 14:54:09 UTC", status: 1)
+    @invoice_item_1 = create(:invoice_item, item: @items[0], invoice: @invoice_1, status: 0)
+    @invoice_item_2 = create(:invoice_item, item: @items[1], invoice: @invoice_1, status: 1)
+    @invoice_item_3 = create(:invoice_item, item: @items[2], invoice: @invoice_1, status: 1)
+    @invoice_item_4 = create(:invoice_item, item: @items[3], invoice: @invoice_2, status: 1)
+    @invoice_item_5 = create(:invoice_item, item: @items[4], invoice: @invoice_2, status: 2)
+
+    visit merchant_dashboard_path(@merchant)
+
+    within("#items_ready_to_ship") do
+      within("#ready_to_ship_item-#{@items[0].id}") do
+      expect(page).to have_content(@invoice_1.id)
+      expect(page).to have_link("#{@invoice_1.id}")
+      click_link("#{@invoice_1.id}")
+      expect(current_path).to eq(merchant_invoice_path(@merchant, @invoice_1))
+      end
+    end
+  end
+
+  # it "US4 has the invoice created at date listed next to each item, formatted correctly, and ordered" do
+  #   @merchant = create(:merchant)
+  #   @items = create_list(:item, 5, merchant: @merchant)
+  #   @invoice_1 = create(:invoice, created_at: "2012-03-27 14:54:09 UTC", status: 1)
+  #   @invoice_2 = create(:invoice, created_at: "2013-05-21 14:54:09 UTC", status: 1)
+  #   @invoice_item_1 = create(:invoice_item, item: @items[0], invoice: @invoice_1, status: 0)
+  #   @invoice_item_2 = create(:invoice_item, item: @items[1], invoice: @invoice_1, status: 1)
+  #   @invoice_item_3 = create(:invoice_item, item: @items[2], invoice: @invoice_1, status: 1)
+  #   @invoice_item_4 = create(:invoice_item, item: @items[3], invoice: @invoice_2, status: 1)
+  #   @invoice_item_5 = create(:invoice_item, item: @items[4], invoice: @invoice_2, status: 2)
+
+  #   visit merchant_dashboard_path(@merchant)
+
+  #   within("#items_ready_to_ship") do
+  #     expect(page).to have_content("Tuesday, March 27, 2012")
+  #     expect(page).to have_content("Tuesday, May 21, 2013")
+  #     expect(@invoice_1.created_at).to appear_before(@invoice_2)
+  #   end
+  # end
 end

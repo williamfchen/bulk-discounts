@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "/merchants/:merchant_id/dashboard", to: "merchants#show"
+  get "/merchants/:merchant_id/dashboard", to: "merchants#show", as: :merchant_dashboard
   get "/merchants/:merchant_id/items", to: "merchants/items#index", as: :merchant_items
   get "/merchants/:merchant_id/items/new", to: "merchants/items#new", as: :new_merchant_item
   post "/merchants/:merchant_id/items", to: "merchants/items#create"

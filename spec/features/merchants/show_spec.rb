@@ -73,18 +73,26 @@ RSpec.feature "the merchant show/dashboard page" do
       transaction_19 = Transaction.create(invoice_id: invoice_6.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 1)
       transaction_20 = Transaction.create(invoice_id: invoice_6.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 1)
       transaction_21 = Transaction.create(invoice_id: invoice_6.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 1)
-
+      transaction_22 = Transaction.create(invoice_id: invoice_1.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 0)
+      transaction_23 = Transaction.create(invoice_id: invoice_1.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 0)
+      transaction_24 = Transaction.create(invoice_id: invoice_1.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 0)
+      transaction_25 = Transaction.create(invoice_id: invoice_1.id, credit_card_number: 123456789, credit_card_expiration_date: 1234, result: 0)
+      
       visit "/merchants/#{merchant_1.id}/dashboard"
-
+      
       expect(page).to have_content("Top 5 Customers")
-      within("#top5-#{customer_6.id}") do
-        expect(page).to have_content(customer_6.first_name)
-        expect(page).to have_content(customer_6.last_name)
-        expect(page).to have_content(6)
-      end
+      within("#top5-customers") do
+        within("#top5-#{customer_6.id}") do
+          expect(page).to have_content(customer_6.first_name)
+          expect(page).to have_content(customer_6.last_name)
+          expect(page).to have_content(6)
+        end
+      end 
 
-      expect(page).to_not have_content(customer_1.first_name)
-      expect(page).to_not have_content(customer_1.last_name)
+      within("#top5-customers") do
+        expect(page).to_not have_content(customer_1.first_name)
+        expect(page).to_not have_content(customer_1.last_name)
+      end 
     end
   end
 end

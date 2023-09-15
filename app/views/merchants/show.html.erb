@@ -1,6 +1,7 @@
 <h1><center><%= @merchant.name %> Dashboard</center></h1>
 <p><center><%= button_to "View Items", "/merchants/#{@merchant.id}/items", method: :get %></center></p><center><%= button_to "View Invoices", "/merchants/#{@merchant.id}/invoices", method: :get %></center>
 <h1>Top 5 Customers</h1>
+<section id="top5-customers">
 <table>
   <thead>
     <tr>
@@ -19,6 +20,7 @@
     <% end %>
   </tbody>
 </table>
+</section>
 
 <h1>Items Ready to Ship</h1>
 <table>

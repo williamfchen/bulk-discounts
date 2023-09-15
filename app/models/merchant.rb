@@ -32,11 +32,27 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
+
   def items_ready_to_ship
     items.joins(:invoices)
     .select('invoices.*, items.*, invoices.id AS invoice_id, invoices.created_at AS invoice_created_at')
     .where.not('invoice_items.status = ?', 2)
     .group('invoices.id, items.id, invoices.created_at')
     .order('invoices.created_at')
+  end 
+
+  def total_revenue
+    items.joins(:transactions)
+      .where('transactions.result = ?', 1)
+      .sum('invoice_items.quantity*invoice_items.unit_price /100.0')
+  end
+
+  def self.top_5_merchants_by_total_revenue
+    select("merchants.*, sum(invoice_items.quantity*invoice_items.unit_price) as revenue")
+    .joins(:transactions)
+    .where('transactions.result = ?', 1)
+    .group(:id)
+    .order('revenue desc')
+    .limit(5)
   end
 end

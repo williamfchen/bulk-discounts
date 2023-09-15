@@ -81,5 +81,8 @@ RSpec.feature "the merchant items index page" do
 
       expect(current_path).to eq(new_merchant_item_path(@merchant_1))
     end
+
+    xit 'US12 displays the top 5 most popular items by revenue' do
+    end
   end
 end

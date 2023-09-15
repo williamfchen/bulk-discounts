@@ -73,41 +73,34 @@ RSpec.describe Merchant, type: :model do
     end
 
     describe '#popular_items' do
-      it 'US 12 returns the top 5 items by total revenue generated' do
+      it 'US 12 returns the top 5 items by total revenue' do
         merchant = create(:merchant)
-
-        item1 = create(:item, merchant: merchant)
-        item2 = create(:item, merchant: merchant)
-        item3 = create(:item, merchant: merchant)
-        item4 = create(:item, merchant: merchant)
-        item5 = create(:item, merchant: merchant)
-        item6 = create(:item, merchant: merchant)
+        items = create_list(:item, 6, merchant: merchant)
+        invoices = create_list(:invoice, 3)
         
-        invoice1 = create(:invoice)
-        invoice2 = create(:invoice)
-        invoice3 = create(:invoice)
+        invoice_items_data = [
+          { item: items[0], invoice: invoices[0], quantity: 5, unit_price: 100 },
+          { item: items[1], invoice: invoices[0], quantity: 3, unit_price: 200 },
+          { item: items[2], invoice: invoices[1], quantity: 4, unit_price: 150 },
+          { item: items[3], invoice: invoices[1], quantity: 6, unit_price: 100 },
+          { item: items[4], invoice: invoices[2], quantity: 2, unit_price: 300 },
+          { item: items[5], invoice: invoices[2], quantity: 1, unit_price: 500 },
+        ]
         
-        create(:invoice_item, item: item1, invoice: invoice1, quantity: 5, unit_price: 100)
-        create(:invoice_item, item: item2, invoice: invoice1, quantity: 3, unit_price: 200)
-        create(:invoice_item, item: item3, invoice: invoice2, quantity: 4, unit_price: 150)
-        create(:invoice_item, item: item4, invoice: invoice2, quantity: 6, unit_price: 100)
-        create(:invoice_item, item: item5, invoice: invoice3, quantity: 2, unit_price: 300)
-        create(:invoice_item, item: item6, invoice: invoice3, quantity: 1, unit_price: 500)
+        invoice_items_data.each do |data|
+          create(:invoice_item, data)
+        end
         
-        create(:transaction, invoice: invoice1, result: 'success')
-        create(:transaction, invoice: invoice2, result: 'success')
-        create(:transaction, invoice: invoice3, result: 'success')
-
-        revenues = {
-          item1 => 5 * 100,
-          item2 => 3 * 200,
-          item3 => 4 * 150,
-          item4 => 6 * 100,
-          item5 => 2 * 300,
-          item6 => 1 * 500
-        }
-
-        expect(merchant.popular_items).to eq(revenues.sort_by { |_, revenue| -revenue }.first(5).map(&:first))
+        invoices.each do |invoice|
+          create(:transaction, invoice: invoice, result: 'success')
+        end
+        
+        expected_item_order = invoice_items_data.group_by { |data| data[:item] }.map do |item, data|
+          total_revenue = data.sum { |invoice_item| invoice_item[:quantity] * invoice_item[:unit_price] }
+          [item, total_revenue]
+        end.to_h.sort_by { |_, revenue| -revenue }.first(5).map(&:first)
+        
+        expect(merchant.popular_items).to eq(expected_item_order)
       end
     end
   end

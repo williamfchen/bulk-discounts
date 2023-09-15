@@ -31,4 +31,12 @@ class Merchant < ApplicationRecord
     .order('revenue DESC')
     .limit(5)
   end
+
+  def items_ready_to_ship
+    items.joins(:invoices)
+    .select('invoices.*, items.name, invoice_items.invoice_id AS invoice_id')
+    .where.not('invoices.status = ?', 2)
+    .group('invoices.id, items.name, invoice_items.invoice_id')
+    .order('invoices.created_at')
+  end
 end

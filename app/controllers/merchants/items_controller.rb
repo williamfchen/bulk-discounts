@@ -26,7 +26,6 @@ class Merchants::ItemsController < ApplicationController
   def update
     if params[:status].present?
       item = Item.find(params[:item_id])
-      # require 'pry';binding.pry
       item.update(status: params[:status].to_i)
       redirect_to merchant_items_path(params[:merchant_id])
     else

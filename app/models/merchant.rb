@@ -22,4 +22,13 @@ class Merchant < ApplicationRecord
   def self.disabled
     where(enabled: false)
   end
+
+  def popular_items
+    items.joins(invoice_items: { invoice: :transactions })
+    .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) / 100.0 as revenue, MAX(invoices.created_at) as top_selling_date')
+    .where('transactions.result = ?', 1)
+    .group('items.id')
+    .order('revenue DESC')
+    .limit(5)
+  end
 end

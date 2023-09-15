@@ -1,19 +1,20 @@
 <h1><center><%= @merchant.name %> Items</center></h1>
 
 <h3>Most Popular Items</h3>
-<table>
+<table id="most_popular_items">
   <thead>
     <tr>
       <th>Name</th>
       <th>Total Revenue</th>
+      <th>Top Selling Date</th>
     </tr>
   </thead>
   <tbody>
     <% @popular_items.each do |item| %>
       <tr>
         <td><%= link_to "#{item.name}", merchant_item_path(@merchant, item), method: :get %></td>
-
-        <td><%= number_to_currency(item.revenue / 100.0) %></td>
+        <td><%= number_to_currency(item.revenue) %></td>
+        <td><%= item.top_selling_date.strftime('%b %d, %Y') %></td>
       </tr>
     <% end %>
   </tbody>

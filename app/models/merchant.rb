@@ -34,9 +34,9 @@ class Merchant < ApplicationRecord
 
   def items_ready_to_ship
     items.joins(:invoices)
-    .select('invoices.*, items.name, invoice_items.invoice_id AS invoice_id')
-    .where.not('invoices.status = ?', 2)
-    .group('invoices.id, items.name, invoice_items.invoice_id')
+    .select('invoices.*, items.*, invoice_items.invoice_id AS invoice_id, invoices.created_at AS invoice_created_at')
+    .where.not('invoice_items.status = ?', 2)
+    .group('invoices.id, items.id, invoice_items.invoice_id, invoices.created_at')
     .order('invoices.created_at')
   end
 end

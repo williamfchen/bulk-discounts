@@ -26,6 +26,7 @@
     <tr>
       <th>Item Name</th>
       <th>Invoice ID</th>
+      <th>Invoice Creation Date</th>
     </tr>
   </thead>
   <tbody>
@@ -34,6 +35,7 @@
       <tr>
         <td><center><%= item.name %></center></td>
         <td><center><%= link_to "#{item.invoice_id}", merchant_invoice_path(@merchant, item) %></center></td>
+        <td><center><%= item.invoice_created_at.strftime('%A, %b %d, %Y') %></center></td>
       </tr>
     </section>
     <% end %>

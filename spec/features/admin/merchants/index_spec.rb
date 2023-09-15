@@ -120,5 +120,20 @@ RSpec.feature "the admin/merchants index page" do
         expect(page).to have_content("Ice Castle")
       end
     end
+
+    # User story 30
+    it "has a section for top five merchants by total revenue" do
+      visit admin_merchants_path
+      
+      expect(page).to have_content("Top Five Merchants By Total Revenue")
+
+      within("#top_five") do
+        within("#merchant-#{@merchant_1.id}") do
+          expect(page).to have_link("#{@merchant_1.name}", href: admin_merchant_path(@merchant_1))
+          expect(page).to have_content("Total Revenue: #{number_to_currency(@merchant_1.total_revenue)}")
+        end
+      end
+
+    end
   end
 end

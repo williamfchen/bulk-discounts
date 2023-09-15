@@ -92,7 +92,7 @@ RSpec.describe Merchant, type: :model do
         expect(Merchant.disabled).to eq([@merchant_5, @merchant_6, @merchant_7])
       end
     end
-
+    
     describe '#popular_items' do
       before(:each) do
         @merchant = create(:merchant)
@@ -116,7 +116,7 @@ RSpec.describe Merchant, type: :model do
           create(:transaction, invoice: invoice, result: 'success')
         end
       end
-
+      
       it 'US 12 returns the top 5 items by total revenue' do
         expected_item_order = @invoice_items_data.group_by { |data| data[:item] }.map do |item, data|
           total_revenue = data.sum { |invoice_item| invoice_item[:quantity] * invoice_item[:unit_price] }
@@ -125,13 +125,29 @@ RSpec.describe Merchant, type: :model do
         
         expect(@merchant.popular_items).to eq(expected_item_order)
       end
-
+    
     # describe '#top_selling_date'
     #   it 'US13 returns the most popular date' do
     #     require 'pry';binding.pry
     #     expect(@merchant.popular_items[0].top_selling_date).to eq(@invoices[0].created_at)
     #   end 
     # end
+      describe '#items_ready_to_ship' do
+        it "US 4 returns items ready to ship" do
+          @merchant = Merchant.create!(name: "Queen Soopers", enabled: true)
+          @item_1 = @merchant.items.create!(name: "Item 1", description: "Item 1 description", unit_price: 100, created_at: 1.day.ago, status: 0)
+          @item_2 = @merchant.items.create!(name: "Item 2", description: "Item 2 description", unit_price: 200, created_at: 2.days.ago, status: 1)
+          @item_3 = @merchant.items.create!(name: "Item 3", description: "Item 3 description", unit_price: 300, status: 0)
+          @customer = Customer.create!(first_name: "Erica", last_name:"One")
+          @invoice_1 = Invoice.create!(customer_id: @customer.id, status: 1 )
+          @invoice_items_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 1, unit_price: 100, status: 0)
+          @invoice_items_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_1.id, quantity: 1, unit_price: 200, status: 1)
+          @invoice_items_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_1.id, quantity: 1, unit_price: 300, status: 2)
+
+          expect(@merchant.items_ready_to_ship[0]).to eq(@item_1)
+          expect(@merchant.items_ready_to_ship[1]).to eq(@item_2)
+        end
+      end
     end
   end
 end

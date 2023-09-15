@@ -15,4 +15,10 @@ class Item < ApplicationRecord
     formatted = sprintf('%.2f', dollars)
     "$#{formatted}"
   end
+
+  #this method is not used in the app, just the merchant items index feature spec
+  def total_revenue
+    revenue = invoice_items.sum('quantity * unit_price / 100.0')
+    sprintf('$%.2f', revenue)
+  end
 end

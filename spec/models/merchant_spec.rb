@@ -133,5 +133,11 @@ RSpec.describe Merchant, type: :model do
     it "returns all disabled merchants" do
       expect(Merchant.disabled).to eq([@merchant_5, @merchant_6, @merchant_7])
     end
+
+    it "returns top 5 merchants by total revenue generated" do
+      top_5_array = Merchant.top_5_by_total_revenue
+    
+      expect(top_5_array).to eq([])
+    end
   end
 end

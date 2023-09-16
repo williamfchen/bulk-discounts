@@ -10,10 +10,9 @@ class Merchants::InvoicesController < ApplicationController
   end
 
   def update
-    require 'pry';binding.pry
     @merchant = Merchant.find(params[:merchant_id])
-    invoice = Invoice.find(params[:invoice_id])
-    invoice.update(status: params[:status])
-    redirect_to merchant_invoice_path(@merchant, invoice)
+    @invoice = Invoice.find(params[:invoice_id])
+    @invoice.update!(status: params[:status])
+    redirect_to merchant_invoice_path(@merchant, @invoice)
   end
 end

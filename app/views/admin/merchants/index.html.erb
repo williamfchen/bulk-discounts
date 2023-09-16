@@ -2,16 +2,30 @@
 
 <%= link_to "Create New Merchant", new_admin_merchant_path %>
 
+
 <h2>Top Five Merchants By Total Revenue</h2>
 <div id="top_five">
-  <% Merchant.top_5_merchants_by_total_revenue.each do |merchant| %>
-    <section id="merchant-<%= merchant.id %>">
-      <%= link_to merchant.name, admin_merchant_path(merchant) %> - Total Revenue: <%= number_to_currency(merchant.total_revenue) %>
-    </section>
-  <% end %>
-</div>
-<br>
-<br>
+<table>
+    <thead>
+      <tr>
+        <th>Merchant Name</th>
+        <th>Total Revenue</th>
+        <th>Top selling date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Merchant.top_5_merchants_by_total_revenue.each do |merchant| %>
+        <tr id="merchant-<%= merchant.id %>">
+          <td><%= link_to merchant.name, admin_merchant_path(merchant) %></td>
+          <td><%= number_to_currency(merchant.total_revenue) %></td>
+          <td><%= merchant.best_day %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+  <br>
+  <br>
 
 <div class="table-container">
   <table class="enabled">

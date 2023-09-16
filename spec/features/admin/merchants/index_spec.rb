@@ -241,8 +241,36 @@ RSpec.feature "the admin/merchants index page" do
         expect(@merchant_4.name).to appear_before(@merchant_5.name)
         expect(@merchant_5.name).to appear_before(@merchant_7.name)
       end
+    end
 
+    # 31. Admin Merchants: Top Merchant's Best Day
+    it "shows the date with the most revenue for each merchant" do
+      visit admin_merchants_path
+      
+      expect(page).to have_content("Top Five Merchants By Total Revenue")
+  
+      within("#top_five") do
+        within("#merchant-#{@merchant_6.id}") do
+          expect(page).to have_content("Top selling date for #{@merchant_6.name} was #{@merchant_6.best_day}")
+        end
+        
+        within("#merchant-#{@merchant_2.id}") do
+          expect(page).to have_content("Top selling date for #{@merchant_2.name} was #{@merchant_2.best_day}")
+        end
+        
+        within("#merchant-#{@merchant_4.id}") do
+          expect(page).to have_content("Top selling date for #{@merchant_4.name} was #{@merchant_4.best_day}")
+        end 
+        
+        within("#merchant-#{@merchant_5.id}") do
+          expect(page).to have_content("Top selling date for #{@merchant_5.name} was #{@merchant_5.best_day}")
+        end
+        
+        within("#merchant-#{@merchant_7.id}") do
+          expect(page).to have_content("Top selling date for #{@merchant_7.name} was #{@merchant_7.best_day}")
+        end
+
+      end
     end
   end
 end
-#number_to_currency(@merchant_6.total_revenue)

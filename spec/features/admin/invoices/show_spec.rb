@@ -69,5 +69,21 @@ RSpec.feature "the admin/invoices show page" do
 
       expect(page).to have_content("Total Revenue: $1,030.29")
     end
+
+    it "US 36 has a for to update the invoice status" do
+      customer_1 = Customer.create!(first_name: "Bob", last_name: "Smith")
+      invoice_1 = Invoice.create!(status: 1, customer_id: customer_1.id, created_at: Time.new(2011,4,5))
+
+      visit admin_invoice_path(invoice_1)
+
+      expect(page).to have_select(:status, with_options: ["in progress", "completed", "cancelled"], selected: "completed")
+      expect(page).to have_button("Update Invoice Status")
+
+      select("in progress", from: :status)
+      click_button("Update Invoice Status")
+
+      expect(current_path).to eq(admin_invoice_path(invoice_1))
+      expect(page).to have_select(:status, selected: "in progress")
+    end
   end
 end

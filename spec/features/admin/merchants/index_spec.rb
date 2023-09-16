@@ -232,7 +232,10 @@ RSpec.feature "the admin/merchants index page" do
           expect(page).to have_link("#{@merchant_7.name}", href: admin_merchant_path(@merchant_7))
           expect(page).to have_content("Total Revenue: #{number_to_currency(@merchant_7.total_revenue)}")
         end
-  
+
+        expect(page).to_not have_link("#{@merchant_3.name}", href: admin_merchant_path(@merchant_3))
+        expect(page).to_not have_content("Total Revenue: #{number_to_currency(@merchant_3.total_revenue)}")
+
         expect(@merchant_6.name).to appear_before(@merchant_2.name)
         expect(@merchant_2.name).to appear_before(@merchant_4.name)
         expect(@merchant_4.name).to appear_before(@merchant_5.name)

@@ -4,7 +4,7 @@
 <p><strong>Status:</strong> <%= @invoice.status %></p>
 
 <%= form_for [@merchant, @invoice], url: merchant_invoice_status_path(@merchant, @invoice), method: :patch, data:{turbo: false} do |f| %>
-  <%= select_tag :status, options_for_select([['cancelled', 'cancelled'], ['in progress', 'in progress'], ['completed', 'completed']]) %>
+  <%= select_tag :status, options_for_select([['cancelled', 'cancelled'], ['in progress', 'in progress'], ['completed', 'completed']], @invoice.status) %>
   <%= f.submit 'Update Invoice Status' %>
 <% end %>
 

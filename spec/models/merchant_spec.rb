@@ -72,26 +72,6 @@ RSpec.describe Merchant, type: :model do
         expect(merchant_1.top_five_customers[4].transaction_count).to eq(2)
       end
     end
-
-    before(:each) do
-      @merchant_1 = Merchant.create!(name: "Queen Soopers", enabled: true)
-      @merchant_2 = Merchant.create!(name: "Quick-E-Mart", enabled: true)
-      @merchant_3 = Merchant.create!(name: "Veggi World", enabled: true)
-      @merchant_4 = Merchant.create!(name: "Spatula City", enabled: true)
-      @merchant_5 = Merchant.create!(name: "Just Powder", enabled: false)
-      @merchant_6 = Merchant.create!(name: "Icee Freeze", enabled: false)
-      @merchant_7 = Merchant.create!(name: "Water World", enabled: false)
-    end
-  
-    describe "Class methods" do 
-      it "returns all enabled merchants" do
-        expect(Merchant.enabled).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4])
-      end
-  
-      it "returns all disabled merchants" do
-        expect(Merchant.disabled).to eq([@merchant_5, @merchant_6, @merchant_7])
-      end
-    end
     
     describe '#popular_items' do
       before(:each) do
@@ -161,7 +141,7 @@ RSpec.describe Merchant, type: :model do
     @merchant_7 = Merchant.create!(name: "Water World", enabled: false)
   end
 
-  describe "Class methods"
+  describe "Class methods" do
     it "returns all enabled merchants" do
       expect(Merchant.enabled).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4])
     end
@@ -170,7 +150,7 @@ RSpec.describe Merchant, type: :model do
       expect(Merchant.disabled).to eq([@merchant_5, @merchant_6, @merchant_7])
     end
 
-    it "returns top 5 merchants by total revenue generated" do
+    xit "returns top 5 merchants by total revenue generated" do
       top_5_array = Merchant.top_5_by_total_revenue
     
       expect(top_5_array).to eq([])

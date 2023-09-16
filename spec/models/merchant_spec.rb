@@ -139,6 +139,83 @@ RSpec.describe Merchant, type: :model do
     @merchant_5 = Merchant.create!(name: "Just Powder", enabled: false)
     @merchant_6 = Merchant.create!(name: "Icee Freeze", enabled: false)
     @merchant_7 = Merchant.create!(name: "Water World", enabled: false)
+
+    @merchant_1_items = create_list(:item, 10, merchant: @merchant_1)
+    @merchant_2_items = create_list(:item, 10, merchant: @merchant_2)
+    @merchant_3_items = create_list(:item, 10, merchant: @merchant_3)
+    @merchant_4_items = create_list(:item, 10, merchant: @merchant_4)
+    @merchant_5_items = create_list(:item, 10, merchant: @merchant_5)
+    @merchant_6_items = create_list(:item, 10, merchant: @merchant_6)
+    @merchant_7_items = create_list(:item, 10, merchant: @merchant_7)
+
+    @customer1 = Customer.create!(first_name: "Bob", last_name: "Smith")
+    @customer2 = Customer.create!(first_name: "Jane", last_name: "Smith")
+    @customer3 = Customer.create!(first_name: "John", last_name: "Smith")
+    @customer4 = Customer.create!(first_name: "Janet", last_name: "Smith")
+    @customer5 = Customer.create!(first_name: "Johnathan", last_name: "Smith")
+    @customer6 = Customer.create!(first_name: "Johnny", last_name: "Smith")
+    @customer7 = Customer.create!(first_name: "Joseph", last_name: "Smith")
+    @customer8 = Customer.create!(first_name: "Smelly", last_name: "Cow")
+
+    @customer1_invoices = create_list(:invoice, 5, customer: @customer1, created_at: Time.new(2014,6,5))
+    @customer2_invoices = create_list(:invoice, 5, customer: @customer2, created_at: Time.new(1998,4,7))
+    @customer3_invoices = create_list(:invoice, 5, customer: @customer3, created_at: Time.new(1900,7,6))
+    @customer4_invoices = create_list(:invoice, 5, customer: @customer4, created_at: Time.new(1997,7,6))
+    @customer5_invoices = create_list(:invoice, 5, customer: @customer5, created_at: Time.new(1987,5,4))
+    @customer6_invoices = create_list(:invoice, 5, customer: @customer6, created_at: Time.new(2001,6,5))
+    @customer7_invoices = create_list(:invoice, 5, customer: @customer7, created_at: Time.new(2003,7,6))
+
+    @invoice1 = Invoice.create!(status: "completed", customer_id: @customer1.id, created_at: Time.new(2011,4,5))
+    @invoice2 = Invoice.create!(status: "completed", customer_id: @customer2.id, created_at: Time.new(2012,3,4))
+    @invoice3 = Invoice.create!(status: "completed", customer_id: @customer3.id, created_at: Time.new(2000,5,6))
+    @invoice4 = Invoice.create!(status: "completed", customer_id: @customer4.id, created_at: Time.new(1999,5,6))
+    @invoice5 = Invoice.create!(status: "completed", customer_id: @customer5.id, created_at: Time.new(2030,5,4))
+    @invoice6 = Invoice.create!(status: "completed", customer_id: @customer6.id, created_at: Time.new(2012,5,4))
+    @invoice7 = Invoice.create!(status: "completed", customer_id: @customer6.id, created_at: Time.new(2016,7,6))
+    @invoice8 = Invoice.create!(status: "completed", customer_id: @customer8.id, created_at: Time.new(2015,5,3))
+
+    @invoice_item1 = InvoiceItem.create!(invoice: @customer1_invoices[0], item: @merchant_1_items[0], status: 0, unit_price: 423, quantity: 4)
+    @invoice_item2 = InvoiceItem.create!(invoice: @customer1_invoices[2], item: @merchant_1_items[4], status: 0, unit_price: 5463, quantity: 6)
+    @invoice_item3 = InvoiceItem.create!(invoice: @customer1_invoices[3], item: @merchant_1_items[5], status: 0, unit_price: 543, quantity: 9)
+    @invoice_item4 = InvoiceItem.create!(invoice: @customer1_invoices[1], item: @merchant_1_items[6], status: 0, unit_price: 543, quantity: 3)
+    @invoice_item5 = InvoiceItem.create!(invoice: @customer2_invoices[0], item: @merchant_1_items[6], status: 0, unit_price: 54, quantity: 8)
+    @invoice_item6 = InvoiceItem.create!(invoice: @customer2_invoices[1], item: @merchant_2_items[0], status: 0, unit_price: 7465, quantity: 4)
+    @invoice_item7 = InvoiceItem.create!(invoice: @customer2_invoices[4], item: @merchant_2_items[3], status: 0, unit_price: 45322, quantity: 3)
+    @invoice_item8 = InvoiceItem.create!(invoice: @customer3_invoices[0], item: @merchant_3_items[0], status: 0, unit_price: 76556, quantity: 2)
+    @invoice_item9 = InvoiceItem.create!(invoice: @customer3_invoices[2], item: @merchant_3_items[3], status: 0, unit_price: 6453, quantity: 1)
+    @invoice_item10 = InvoiceItem.create!(invoice: @customer3_invoices[4], item: @merchant_4_items[7], status: 0, unit_price: 4532, quantity: 8)
+    @invoice_item11 = InvoiceItem.create!(invoice: @customer4_invoices[0], item: @merchant_4_items[7], status: 0, unit_price: 9876, quantity: 4)
+    @invoice_item12 = InvoiceItem.create!(invoice: @customer4_invoices[3], item: @merchant_4_items[9], status: 0, unit_price: 4533, quantity: 4)
+    @invoice_item13 = InvoiceItem.create!(invoice: @customer5_invoices[0], item: @merchant_5_items[0], status: 0, unit_price: 768, quantity: 8)
+    @invoice_item14 = InvoiceItem.create!(invoice: @customer5_invoices[1], item: @merchant_5_items[1], status: 0, unit_price: 8765, quantity: 3)
+    @invoice_item15 = InvoiceItem.create!(invoice: @customer5_invoices[4], item: @merchant_5_items[7], status: 0, unit_price: 7645, quantity: 4)
+    @invoice_item16 = InvoiceItem.create!(invoice: @customer6_invoices[0], item: @merchant_6_items[0], status: 0, unit_price: 4623, quantity: 4)
+    @invoice_item17 = InvoiceItem.create!(invoice: @customer6_invoices[1], item: @merchant_6_items[7], status: 0, unit_price: 6876, quantity: 4)
+    @invoice_item18 = InvoiceItem.create!(invoice: @customer7_invoices[0], item: @merchant_6_items[8], status: 0, unit_price: 4265, quantity: 4)
+    @invoice_item19 = InvoiceItem.create!(invoice: @customer7_invoices[3], item: @merchant_6_items[3], status: 0, unit_price: 97568, quantity: 4)
+    @invoice_item20 = InvoiceItem.create!(invoice: @customer7_invoices[2], item: @merchant_7_items[3], status: 0, unit_price: 3254, quantity: 4)
+
+    create(:transaction, invoice: @customer1_invoices[0], result: "success")
+    create(:transaction, invoice: @customer1_invoices[2], result: "failed")
+    create(:transaction, invoice: @customer1_invoices[3], result: "success")
+    create(:transaction, invoice: @customer1_invoices[1], result: "success")
+    create(:transaction, invoice: @customer2_invoices[0], result: "failed")
+    create(:transaction, invoice: @customer2_invoices[1], result: "success")
+    create(:transaction, invoice: @customer2_invoices[4], result: "success")
+    create(:transaction, invoice: @customer3_invoices[0], result: "failed")
+    create(:transaction, invoice: @customer3_invoices[2], result: "success")
+    create(:transaction, invoice: @customer3_invoices[4], result: "success")
+    create(:transaction, invoice: @customer4_invoices[0], result: "failed")
+    create(:transaction, invoice: @customer4_invoices[3], result: "success")
+    create(:transaction, invoice: @customer5_invoices[0], result: "success")
+    create(:transaction, invoice: @customer5_invoices[1], result: "failed")
+    create(:transaction, invoice: @customer5_invoices[4], result: "success")
+    create(:transaction, invoice: @customer6_invoices[0], result: "failed")
+    create(:transaction, invoice: @customer6_invoices[1], result: "success")
+    create(:transaction, invoice: @customer7_invoices[0], result: "success")
+    create(:transaction, invoice: @customer7_invoices[3], result: "success")
+    create(:transaction, invoice: @customer7_invoices[2], result: "failed")
+    create(:transaction, invoice: @customer7_invoices[2], result: "success")
   end
 
   describe "Class methods" do
@@ -150,10 +227,10 @@ RSpec.describe Merchant, type: :model do
       expect(Merchant.disabled).to eq([@merchant_5, @merchant_6, @merchant_7])
     end
 
-    xit "returns top 5 merchants by total revenue generated" do
-      top_5_array = Merchant.top_5_by_total_revenue
+    it "returns top 5 merchants by total revenue generated" do
+      top_5_array = Merchant.top_5_merchants_by_total_revenue
     
-      expect(top_5_array).to eq([])
+      expect(top_5_array).to eq([@merchant_6, @merchant_2, @merchant_4, @merchant_5, @merchant_7])
     end
   end
 end

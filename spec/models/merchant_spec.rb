@@ -73,6 +73,7 @@ RSpec.describe Merchant, type: :model do
       end
     end
 
+
     before(:each) do
       @merchant_1 = Merchant.create!(name: "Queen Soopers", enabled: true)
       @merchant_2 = Merchant.create!(name: "Quick-E-Mart", enabled: true)
@@ -159,10 +160,78 @@ RSpec.describe Merchant, type: :model do
     @merchant_5 = Merchant.create!(name: "Just Powder", enabled: false)
     @merchant_6 = Merchant.create!(name: "Icee Freeze", enabled: false)
     @merchant_7 = Merchant.create!(name: "Water World", enabled: false)
+
+    @merchant_1_items = create_list(:item, 10, merchant: @merchant_1)
+    @merchant_2_items = create_list(:item, 10, merchant: @merchant_2)
+    @merchant_3_items = create_list(:item, 10, merchant: @merchant_3)
+    @merchant_4_items = create_list(:item, 10, merchant: @merchant_4)
+    @merchant_5_items = create_list(:item, 10, merchant: @merchant_5)
+    @merchant_6_items = create_list(:item, 10, merchant: @merchant_6)
+    @merchant_7_items = create_list(:item, 10, merchant: @merchant_7)
+
+    @customer1 = Customer.create!(first_name: "Bob", last_name: "Smith")
+    @customer2 = Customer.create!(first_name: "Jane", last_name: "Smith")
+    @customer3 = Customer.create!(first_name: "John", last_name: "Smith")
+    @customer4 = Customer.create!(first_name: "Janet", last_name: "Smith")
+    @customer5 = Customer.create!(first_name: "Johnathan", last_name: "Smith")
+    @customer6 = Customer.create!(first_name: "Johnny", last_name: "Smith")
+    @customer7 = Customer.create!(first_name: "Joseph", last_name: "Smith")
+    @customer8 = Customer.create!(first_name: "Smelly", last_name: "Cow")
+
+    @customer1_invoices = create_list(:invoice, 5, customer: @customer1, created_at: Time.new(2014,6,5))
+    @customer2_invoices = create_list(:invoice, 5, customer: @customer2, created_at: Time.new(1998,4,7))
+    @customer3_invoices = create_list(:invoice, 5, customer: @customer3, created_at: Time.new(1900,7,6))
+    @customer4_invoices = create_list(:invoice, 5, customer: @customer4, created_at: Time.new(1997,7,6))
+    @customer5_invoices = create_list(:invoice, 5, customer: @customer5, created_at: Time.new(1987,5,4))
+    @customer6_invoices = create_list(:invoice, 5, customer: @customer6, created_at: Time.new(2001,6,5))
+    @customer7_invoices = create_list(:invoice, 5, customer: @customer7, created_at: Time.new(2003,7,6))
+
+    @invoice_item1 = InvoiceItem.create!(invoice: @customer1_invoices[0], item: @merchant_1_items[0], status: 0, unit_price: 423, quantity: 4)
+    @invoice_item2 = InvoiceItem.create!(invoice: @customer1_invoices[2], item: @merchant_1_items[4], status: 0, unit_price: 5463, quantity: 6)
+    @invoice_item3 = InvoiceItem.create!(invoice: @customer1_invoices[3], item: @merchant_1_items[5], status: 0, unit_price: 543, quantity: 9)
+    @invoice_item4 = InvoiceItem.create!(invoice: @customer1_invoices[1], item: @merchant_1_items[6], status: 0, unit_price: 543, quantity: 3)
+    @invoice_item5 = InvoiceItem.create!(invoice: @customer2_invoices[0], item: @merchant_1_items[6], status: 0, unit_price: 54, quantity: 8)
+    @invoice_item6 = InvoiceItem.create!(invoice: @customer2_invoices[1], item: @merchant_2_items[0], status: 0, unit_price: 7465, quantity: 4)
+    @invoice_item7 = InvoiceItem.create!(invoice: @customer2_invoices[4], item: @merchant_2_items[3], status: 0, unit_price: 45322, quantity: 3)
+    @invoice_item8 = InvoiceItem.create!(invoice: @customer3_invoices[0], item: @merchant_3_items[0], status: 0, unit_price: 76556, quantity: 2)
+    @invoice_item9 = InvoiceItem.create!(invoice: @customer3_invoices[2], item: @merchant_3_items[3], status: 0, unit_price: 6453, quantity: 1)
+    @invoice_item10 = InvoiceItem.create!(invoice: @customer3_invoices[4], item: @merchant_4_items[7], status: 0, unit_price: 4532, quantity: 8)
+    @invoice_item11 = InvoiceItem.create!(invoice: @customer4_invoices[0], item: @merchant_4_items[7], status: 0, unit_price: 9876, quantity: 4)
+    @invoice_item12 = InvoiceItem.create!(invoice: @customer4_invoices[3], item: @merchant_4_items[9], status: 0, unit_price: 4533, quantity: 4)
+    @invoice_item13 = InvoiceItem.create!(invoice: @customer5_invoices[0], item: @merchant_5_items[0], status: 0, unit_price: 768, quantity: 8)
+    @invoice_item14 = InvoiceItem.create!(invoice: @customer5_invoices[1], item: @merchant_5_items[1], status: 0, unit_price: 8765, quantity: 3)
+    @invoice_item15 = InvoiceItem.create!(invoice: @customer5_invoices[4], item: @merchant_5_items[7], status: 0, unit_price: 7645, quantity: 4)
+    @invoice_item16 = InvoiceItem.create!(invoice: @customer6_invoices[0], item: @merchant_6_items[0], status: 0, unit_price: 4623, quantity: 4)
+    @invoice_item17 = InvoiceItem.create!(invoice: @customer6_invoices[1], item: @merchant_6_items[7], status: 0, unit_price: 6876, quantity: 4)
+    @invoice_item18 = InvoiceItem.create!(invoice: @customer7_invoices[0], item: @merchant_6_items[8], status: 0, unit_price: 4265, quantity: 4)
+    @invoice_item19 = InvoiceItem.create!(invoice: @customer7_invoices[3], item: @merchant_6_items[3], status: 0, unit_price: 97568, quantity: 4)
+    @invoice_item20 = InvoiceItem.create!(invoice: @customer7_invoices[2], item: @merchant_7_items[3], status: 0, unit_price: 3254, quantity: 4)
+
+    create(:transaction, invoice: @customer1_invoices[0], result: "success")
+    create(:transaction, invoice: @customer1_invoices[2], result: "failed")
+    create(:transaction, invoice: @customer1_invoices[3], result: "success")
+    create(:transaction, invoice: @customer1_invoices[1], result: "success")
+    create(:transaction, invoice: @customer2_invoices[0], result: "failed")
+    create(:transaction, invoice: @customer2_invoices[1], result: "success")
+    create(:transaction, invoice: @customer2_invoices[4], result: "success")
+    create(:transaction, invoice: @customer3_invoices[0], result: "failed")
+    create(:transaction, invoice: @customer3_invoices[2], result: "success")
+    create(:transaction, invoice: @customer3_invoices[4], result: "success")
+    create(:transaction, invoice: @customer4_invoices[0], result: "failed")
+    create(:transaction, invoice: @customer4_invoices[3], result: "success")
+    create(:transaction, invoice: @customer5_invoices[0], result: "success")
+    create(:transaction, invoice: @customer5_invoices[1], result: "failed")
+    create(:transaction, invoice: @customer5_invoices[4], result: "success")
+    create(:transaction, invoice: @customer6_invoices[0], result: "failed")
+    create(:transaction, invoice: @customer6_invoices[1], result: "success")
+    create(:transaction, invoice: @customer7_invoices[0], result: "success")
+    create(:transaction, invoice: @customer7_invoices[3], result: "success")
+    create(:transaction, invoice: @customer7_invoices[2], result: "failed")
+    create(:transaction, invoice: @customer7_invoices[2], result: "success")
   end
 
-  describe "Class methods" do 
-    xit "returns all enabled merchants" do
+  describe "Class methods" do
+    it "returns all enabled merchants" do
       expect(Merchant.enabled).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4])
     end
 
@@ -170,10 +239,20 @@ RSpec.describe Merchant, type: :model do
       expect(Merchant.disabled).to eq([@merchant_5, @merchant_6, @merchant_7])
     end
 
-    xit "returns top 5 merchants by total revenue generated" do
+    it "returns top 5 merchants by total revenue generated" do
       top_5_array = Merchant.top_5_merchants_by_total_revenue
     
-      expect(top_5_array).to eq([])
+      expect(top_5_array).to eq([@merchant_6, @merchant_2, @merchant_4, @merchant_5, @merchant_7])
+    end
+
+    it "returns the top sales date for a given merchant" do
+      expect(@merchant_1.best_day).to eq("Thursday, June 5, 2014")
+      expect(@merchant_2.best_day).to eq("Tuesday, April 7, 1998")
+      expect(@merchant_3.best_day).to eq("Friday, July 6, 1900")
+      expect(@merchant_4.best_day).to eq("Friday, July 6, 1900")
+      expect(@merchant_5.best_day).to eq("Monday, May 4, 1987")
+      expect(@merchant_6.best_day).to eq("Sunday, July 6, 2003")
+      expect(@merchant_7.best_day).to eq("Sunday, July 6, 2003")
     end
   end
 end

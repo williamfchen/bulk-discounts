@@ -210,36 +210,72 @@ RSpec.feature "the admin/merchants index page" do
       within("#top_five") do
         within("#merchant-#{@merchant_6.id}") do
           expect(page).to have_link("#{@merchant_6.name}", href: admin_merchant_path(@merchant_6))
-          expect(page).to have_content("Total Revenue: #{number_to_currency(@merchant_6.total_revenue)}")
+          expect(page).to have_content("#{number_to_currency(@merchant_6.total_revenue)}")
         end
   
         within("#merchant-#{@merchant_2.id}") do
           expect(page).to have_link("#{@merchant_2.name}", href: admin_merchant_path(@merchant_2))
-          expect(page).to have_content("Total Revenue: #{number_to_currency(@merchant_2.total_revenue)}")
+          expect(page).to have_content("#{number_to_currency(@merchant_2.total_revenue)}")
         end
   
         within("#merchant-#{@merchant_4.id}") do
           expect(page).to have_link("#{@merchant_4.name}", href: admin_merchant_path(@merchant_4))
-          expect(page).to have_content("Total Revenue: #{number_to_currency(@merchant_4.total_revenue)}")
+          expect(page).to have_content("#{number_to_currency(@merchant_4.total_revenue)}")
         end 
   
         within("#merchant-#{@merchant_5.id}") do
           expect(page).to have_link("#{@merchant_5.name}", href: admin_merchant_path(@merchant_5))
-          expect(page).to have_content("Total Revenue: #{number_to_currency(@merchant_5.total_revenue)}")
+          expect(page).to have_content("#{number_to_currency(@merchant_5.total_revenue)}")
         end
         
         within("#merchant-#{@merchant_7.id}") do
           expect(page).to have_link("#{@merchant_7.name}", href: admin_merchant_path(@merchant_7))
-          expect(page).to have_content("Total Revenue: #{number_to_currency(@merchant_7.total_revenue)}")
+          expect(page).to have_content("#{number_to_currency(@merchant_7.total_revenue)}")
         end
-  
+
+        expect(page).to_not have_link("#{@merchant_3.name}", href: admin_merchant_path(@merchant_3))
+        expect(page).to_not have_content("#{number_to_currency(@merchant_3.total_revenue)}")
+
         expect(@merchant_6.name).to appear_before(@merchant_2.name)
         expect(@merchant_2.name).to appear_before(@merchant_4.name)
         expect(@merchant_4.name).to appear_before(@merchant_5.name)
         expect(@merchant_5.name).to appear_before(@merchant_7.name)
       end
+    end
 
+    # 31. Admin Merchants: Top Merchant's Best Day
+    it "shows the date with the most revenue for each merchant" do
+      visit admin_merchants_path
+      
+      expect(page).to have_content("Top Five Merchants By Total Revenue")
+  
+      within("#top_five") do
+        within("#merchant-#{@merchant_6.id}") do
+          expect(page).to have_content("#{@merchant_6.name}")
+          expect(page).to have_content("#{@merchant_6.best_day}")
+        end
+        
+        within("#merchant-#{@merchant_2.id}") do
+          expect(page).to have_content("#{@merchant_2.name}")
+          expect(page).to have_content("#{@merchant_2.best_day}")
+        end
+        
+        within("#merchant-#{@merchant_4.id}") do
+          expect(page).to have_content("#{@merchant_4.name}")
+          expect(page).to have_content("#{@merchant_4.best_day}")
+        end 
+        
+        within("#merchant-#{@merchant_5.id}") do
+          expect(page).to have_content("#{@merchant_5.name}")
+          expect(page).to have_content("#{@merchant_5.best_day}")
+        end
+        
+        within("#merchant-#{@merchant_7.id}") do
+          expect(page).to have_content("#{@merchant_7.name}")
+          expect(page).to have_content("#{@merchant_7.best_day}")
+        end
+
+      end
     end
   end
 end
-#number_to_currency(@merchant_6.total_revenue)

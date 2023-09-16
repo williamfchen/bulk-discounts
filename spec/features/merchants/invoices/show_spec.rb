@@ -47,5 +47,24 @@ RSpec.feature "the merchant invoices show page" do
       
       expect(page).to have_content("Total Revenue of Invoice: $#{invoice.total_revenue}")
     end
+
+    it "US18 changing the status of an invoice" do
+      merchant_1 = create(:merchant)
+      item_1 = create(:item, merchant: merchant_1)
+      customer_1 = create(:customer)
+      invoice_1 = create(:invoice, status: 0)
+      invoice_item_1 = create(:invoice_item, item: item_1, invoice: invoice_1)
+
+      visit merchant_invoice_path(merchant_1, invoice_1)
+
+      expect(invoice_1.status).to eq("in progress")
+      expect(page).to have_select(:status, options: ['cancelled', 'in progress', 'completed'])
+      select('cancelled', from: :status)
+      click_button('Update Invoice')
+      invoice_1.reload
+      
+      expect(current_path).to eq(merchant_invoice_path(merchant_1, invoice_1))
+      expect(invoice_1.status).to eq('cancelled')
+    end
   end
 end

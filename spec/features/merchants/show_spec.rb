@@ -141,7 +141,7 @@ RSpec.feature "the merchant show/dashboard page" do
     end
   end
 
-  # it "US4 has the invoice created at date listed next to each item, formatted correctly, and ordered" do
+  # xit "US4 has the invoice created at date listed next to each item, formatted correctly, and ordered" do
   #   @merchant = create(:merchant)
   #   @items = create_list(:item, 5, merchant: @merchant)
   #   @invoice_1 = create(:invoice, created_at: "2012-03-27 14:54:09 UTC", status: 1)

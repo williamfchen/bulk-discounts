@@ -165,15 +165,6 @@ RSpec.describe Merchant, type: :model do
     @customer6_invoices = create_list(:invoice, 5, customer: @customer6, created_at: Time.new(2001,6,5))
     @customer7_invoices = create_list(:invoice, 5, customer: @customer7, created_at: Time.new(2003,7,6))
 
-    @invoice1 = Invoice.create!(status: "completed", customer_id: @customer1.id, created_at: Time.new(2011,4,5))
-    @invoice2 = Invoice.create!(status: "completed", customer_id: @customer2.id, created_at: Time.new(2012,3,4))
-    @invoice3 = Invoice.create!(status: "completed", customer_id: @customer3.id, created_at: Time.new(2000,5,6))
-    @invoice4 = Invoice.create!(status: "completed", customer_id: @customer4.id, created_at: Time.new(1999,5,6))
-    @invoice5 = Invoice.create!(status: "completed", customer_id: @customer5.id, created_at: Time.new(2030,5,4))
-    @invoice6 = Invoice.create!(status: "completed", customer_id: @customer6.id, created_at: Time.new(2012,5,4))
-    @invoice7 = Invoice.create!(status: "completed", customer_id: @customer6.id, created_at: Time.new(2016,7,6))
-    @invoice8 = Invoice.create!(status: "completed", customer_id: @customer8.id, created_at: Time.new(2015,5,3))
-
     @invoice_item1 = InvoiceItem.create!(invoice: @customer1_invoices[0], item: @merchant_1_items[0], status: 0, unit_price: 423, quantity: 4)
     @invoice_item2 = InvoiceItem.create!(invoice: @customer1_invoices[2], item: @merchant_1_items[4], status: 0, unit_price: 5463, quantity: 6)
     @invoice_item3 = InvoiceItem.create!(invoice: @customer1_invoices[3], item: @merchant_1_items[5], status: 0, unit_price: 543, quantity: 9)
@@ -231,6 +222,16 @@ RSpec.describe Merchant, type: :model do
       top_5_array = Merchant.top_5_merchants_by_total_revenue
     
       expect(top_5_array).to eq([@merchant_6, @merchant_2, @merchant_4, @merchant_5, @merchant_7])
+    end
+
+    it "returns the top sales date for a given merchant" do
+      expect(@merchant_1.best_day).to eq("Thursday, June 5, 2014")
+      expect(@merchant_2.best_day).to eq("Tuesday, April 7, 1998")
+      expect(@merchant_3.best_day).to eq("Friday, July 6, 1900")
+      expect(@merchant_4.best_day).to eq("Friday, July 6, 1900")
+      expect(@merchant_5.best_day).to eq("Monday, May 4, 1987")
+      expect(@merchant_6.best_day).to eq("Sunday, July 6, 2003")
+      expect(@merchant_7.best_day).to eq("Sunday, July 6, 2003")
     end
   end
 end

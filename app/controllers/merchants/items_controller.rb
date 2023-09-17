@@ -19,8 +19,15 @@ class Merchants::ItemsController < ApplicationController
 
   def create
     merchant = Merchant.find(params[:merchant_id])
-    item = merchant.items.create(item_params)
-    redirect_to merchant_items_path(merchant)
+    item = merchant.items.new(item_params)
+    item.save
+    if item.save
+      redirect_to merchant_items_path(merchant)
+      flash[:success] = "Item successfully created!"
+    elsif !item.save
+      redirect_to new_merchant_item_path(merchant)
+      flash[:error] = "Item not created: Required information missing."
+    end
   end
 
   def update

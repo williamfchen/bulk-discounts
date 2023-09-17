@@ -83,16 +83,6 @@ RSpec.describe Merchant, type: :model do
       @merchant_6 = Merchant.create!(name: "Icee Freeze", enabled: false)
       @merchant_7 = Merchant.create!(name: "Water World", enabled: false)
     end
-  
-    xdescribe "Class methods" do 
-      it "returns all enabled merchants" do
-        expect(Merchant.enabled).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4])
-      end
-  
-      it "returns all disabled merchants" do
-        expect(Merchant.disabled).to eq([@merchant_5, @merchant_6, @merchant_7])
-      end
-    end
     
     describe '#popular_items' do
       before(:each) do

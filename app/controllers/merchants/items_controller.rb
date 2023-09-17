@@ -31,15 +31,17 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def update
+    item = Item.find(params[:item_id])
     if params[:status].present?
-      item = Item.find(params[:item_id])
       item.update(status: params[:status].to_i)
       redirect_to merchant_items_path(params[:merchant_id])
-    else
-      item = Item.find(params[:item_id])
+    elsif params[:name].present? && params[:description].present? && params[:unit_price].present?
       item.update(item_params)
       redirect_to merchant_item_path(params[:merchant_id], params[:item_id])
       flash[:success] = "Item successfully updated!"
+    elsif !params[:name].present? || !params[:description].present? || !params[:unit_price].present? 
+      redirect_to edit_merchant_item_path(params[:merchant_id], params[:item_id])
+      flash[:error] = "Item not updated: Required information missing."
     end 
   end
 

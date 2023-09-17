@@ -235,7 +235,7 @@ RSpec.describe Merchant, type: :model do
       expect(Merchant.enabled).to eq([@merchant_1, @merchant_2, @merchant_3, @merchant_4])
     end
 
-    xit "returns all disabled merchants" do
+    it "returns all disabled merchants" do
       expect(Merchant.disabled).to eq([@merchant_5, @merchant_6, @merchant_7])
     end
 

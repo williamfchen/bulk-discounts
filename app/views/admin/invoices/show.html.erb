@@ -1,6 +1,13 @@
 <%= render partial: "admin/page_head" %>
 
 <center><h3>Invoice #<%= @invoice.id %></h3></center>
+
+<%= form_with url: admin_invoice_path(@invoice), method: :patch, data:{turbo: false} do |f| %>
+  <%= f.label "Status:" %>
+  <%= f.select :status, ["in progress", "cancelled", "completed"], selected: @invoice.status %>
+  <%= f.submit "Update Invoice Status" %><br>
+<% end %>
+
 <p><b>Status:</b> <%= @invoice.status.capitalize %></p>
 <p><b>Created on:</b> <%= @invoice.created_at.strftime("%A, %B %d, %Y") %>
 <p><b>Total Revenue:</b> <%= number_to_currency(@invoice.total_revenue) %>

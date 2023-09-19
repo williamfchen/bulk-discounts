@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActionView::Helpers::NumberHelper
 
 RSpec.describe Merchant, type: :model do
   describe "relationships" do
@@ -225,8 +226,8 @@ RSpec.describe Merchant, type: :model do
 
     it "returns top 5 merchants by total revenue generated" do
       top_5_array = Merchant.top_5_merchants_by_total_revenue
-    
       expect(top_5_array).to eq([@merchant_6, @merchant_2, @merchant_4, @merchant_5, @merchant_7])
+      expect(number_to_currency(@merchant_6.total_revenue)).to eq("$4,348.36")
     end
 
     it "returns the top sales date for a given merchant" do

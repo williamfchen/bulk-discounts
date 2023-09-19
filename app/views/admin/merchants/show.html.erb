@@ -1,2 +1,3 @@
 <h1><center>Merchant: <%= @merchant.name %></center></h1>
+<%= render partial: "admin/page_head" %>
 <%= link_to "Edit #{@merchant.name}", edit_admin_merchant_path(@merchant) %>

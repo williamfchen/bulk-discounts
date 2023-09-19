@@ -107,7 +107,7 @@ RSpec.feature "the merchant show/dashboard page" do
     @invoice_item_4 = create(:invoice_item, item: @items[3], invoice: @invoice_2, status: 1)
     @invoice_item_5 = create(:invoice_item, item: @items[4], invoice: @invoice_2, status: 2)
 
-    visit merchant_dashboard_path(@merchant)
+    visit dashboard_merchants_path(@merchant)
 
     within("#items_ready_to_ship") do
       expect(page).to have_content(@invoice_item_1.item.name)
@@ -129,7 +129,7 @@ RSpec.feature "the merchant show/dashboard page" do
     @invoice_item_4 = create(:invoice_item, item: @items[3], invoice: @invoice_2, status: 1)
     @invoice_item_5 = create(:invoice_item, item: @items[4], invoice: @invoice_2, status: 2)
 
-    visit merchant_dashboard_path(@merchant)
+    visit dashboard_merchants_path(@merchant)
 
     within("#items_ready_to_ship") do
       within("#ready_to_ship_item-#{@items[0].id}") do

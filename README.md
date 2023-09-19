@@ -44,16 +44,35 @@ https://miro.com/app/board/uXjVMmORetk=/
 1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
 
+## Work Completed
+ - The project team worked together to build out functionality for the admin and merchant pages on this ficticioius e-commerce platform.
+ - Merchant dashboard, merchant items and merchant invoice pages were built in order to track item and invoice fulfillment from merchant dashboard.
+ - Admin dashboard, admin merchant and admin invoice pages were built to track overall item and invoice fulfillment from admin dashboard.
+ - Complex Active Record queries were used to provide statistics and useful information for both admin and merchant dashboard views.
+ - Advanced routing used throughout project, and partials were used to dry up similar code.
 
-Contributors:
-Antoine:
-aaube3@gmail.com
+ ## Potential Refactor / Expansion Options
+ - Option to update invoice statuses on one page at the same time
+ - Sorting options, on each page that lists merchants, invoices or items, there is an option to sort alphabetically or by most recent date
+ - Styling - Implementing a more consistent look and feel throughout site with reusable styles
+ - API Consumption - Utilizing Unsplash to create a logo for the site and photos of items and merchants on each page and tracking image statistic/like history of site logo.
+ - Authentication / Authorization for admin and/or merchants
+ - Implement cart functionality for users to add items to their carts.
+ - Site chat functionality
 
-Kaylee:
-kaylee.j.janes@gmail.com
+## Contributors
+Antoine: 
+- [GitHub](https://github.com/Antoine-Aube)
+- Email: aaube3@gmail.com
 
-Paul:
-pcbennett42@gmail.com
+Kaylee: 
+- [GitHub](https://github.com/kbug819)
+- Email: kaylee.j.janes@gmail.com
 
-Will Chen:
-wfchen1990@gmail.com
+Paul: 
+- [GitHub](https://github.com/pcbennett108)
+- Email: pcbennett42@gmail.com
+
+Will Chen: 
+- [GitHub](https://github.com/williamfchen)
+- Email: wfchen1990@gmail.com

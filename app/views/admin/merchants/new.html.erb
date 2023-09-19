@@ -1,7 +1,8 @@
 <h1><center>Create A New Merchant</center></h1>
+<%= render partial: "admin/page_head" %>
 
-<%= form_with url: admin_merchants_path do |f|%>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.submit "Submit" %>
-<% end %>
+<%= render partial: 'merchant_form', locals: {
+  path: admin_merchants_path,
+  method: :post,
+  value: ""
+} %>

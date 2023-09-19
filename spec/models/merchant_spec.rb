@@ -117,13 +117,7 @@ RSpec.describe Merchant, type: :model do
         
         expect(@merchant.popular_items).to eq(expected_item_order)
       end
-    
-    # describe '#top_selling_date'
-    #   it 'US13 returns the most popular date' do
-    #     require 'pry';binding.pry
-    #     expect(@merchant.popular_items[0].top_selling_date).to eq(@invoices[0].created_at)
-    #   end 
-    # end
+
       describe '#items_ready_to_ship' do
         it "US 4 returns items ready to ship" do
           @merchant = Merchant.create!(name: "Queen Soopers", enabled: true)

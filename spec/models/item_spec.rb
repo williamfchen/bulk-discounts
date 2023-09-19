@@ -21,5 +21,18 @@ RSpec.describe Item, type: :model do
 
       expect(item.formatted_unit_price).to eq("$10.00")
     end
+
+    describe "#total_revenue" do
+      it 'returns the total revenue for an item' do
+        merchant = create(:merchant)
+        item = create(:item, merchant: merchant, unit_price: 1000)
+        customer = create(:customer)
+        invoice = customer.invoices.create!(status: 1)
+        invoice_item = create(:invoice_item, item: item, invoice: invoice, quantity: 2, unit_price: 1000)
+        transaction = create(:transaction, invoice: invoice, result: 1)
+
+        expect(item.total_revenue).to eq("$20.00")
+      end
+    end
   end
 end

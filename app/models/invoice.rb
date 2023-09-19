@@ -17,10 +17,6 @@ class Invoice < ApplicationRecord
     .order(:created_at)
   end
 
-  def self.group_by_id
-    group(:id)
-  end
-
   def total_revenue
     invoice_items.sum("unit_price * quantity") / 100.0
   end

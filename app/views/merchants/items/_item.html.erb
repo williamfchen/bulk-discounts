@@ -6,7 +6,7 @@
     <td><%= item.created_at %></td>
     <td><%= item.updated_at %></td>
     <td><%= item.status %></td>
-    <td><%= button_to "Enable Item", status_merchant_item_path(@merchant, item), method: :patch, params: { item_id: item.id, status: 1 }, data: { turbo: false } %></td>
-    <td><%= button_to "Disable Item", status_merchant_item_path(@merchant, item), method: :patch, params: { item_id: item.id, status: 0 }, data: { turbo: false } %></td>
+    <td><%= button_to "Enable Item", status_merchant_item_path(@merchant, item), method: :patch, class: 'action-button-dis', params: { item_id: item.id, status: 1 }, data: { turbo: false } %></td>
+    <td><%= button_to "Disable Item", status_merchant_item_path(@merchant, item), method: :patch, class: 'action-button-en', params: { item_id: item.id, status: 0 }, data: { turbo: false } %></td>
   </tr>
 </section>

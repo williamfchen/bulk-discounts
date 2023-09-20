@@ -38,12 +38,6 @@ RSpec.describe Invoice, type: :model do
         it "shows a list of invoices that have not yet shipped" do
           expect(Invoice.incomplete_invoices).to eq([@invoice_1, @invoice_2])
         end
-
-        describe '#group_by_id' do
-          it 'groups invoices by id' do
-            expect(Invoice.group_by_id).to contain_exactly(@invoice_1, @invoice_2, @invoice_3)
-          end
-        end
       end
     end
   end

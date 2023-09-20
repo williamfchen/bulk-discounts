@@ -1,7 +1,9 @@
 <h1><center>Update Merchant: <%= @merchant.name%></center></h1>
+<%= render partial: "admin/page_head" %>
 
-<%= form_with url: admin_merchant_path(@merchant), method: :patch do |f|%>
-  <%= f.label :name %>
-  <%= f.text_field :name, value: @merchant.name %>
-  <%= f.submit "Submit" %>
-<% end %>
+
+<%= render partial: 'merchant_form', locals: {
+  path: admin_merchant_path(@merchant),
+  method: :patch,
+  value: @merchant.name
+} %>

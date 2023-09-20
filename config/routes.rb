@@ -16,23 +16,24 @@ Rails.application.routes.draw do
     resources :merchants, except: [:destroy]
     resources :invoices, only: [:index, :show, :update]
   end
-
-  # resources :merchants, only: [:show] do
-  # # namespace :merchant do
-  #     resources :invoices, only: [:index, :show]
-  #     resources :items, only: [:index]
-  #   # end
-  # end
-
-  # resources :merchants do
-  #   resources :dashboard, only: [:show]
-  #   resources :items, only: [:index], controller: "merchants/items"
-  #   resources :invoices, only: [:index, :show], controller: "merchants/invoices"
-  # end
-
-  # resources :merchants, param: :merchant_id do
-  #   get "dashboard", on: :member, to: "merchants#show_dashboard"
-  #   resources :items, only: [:index]
-  #   resources :invoices, only: [:index, :show]
-  # end
+  
+  # resources :merchants, only: [] do
+  #   collection do
+  #     get ':merchant_id/dashboard', to: 'merchants#show', as: :dashboard
+  #   end
+    
+  #   resources :items, controller: 'merchants/items', param: :item_id do
+  #     member do
+  #       get 'edit', to: 'merchants/items#edit', as: :edit
+  #       patch '', to: 'merchants/items#update'
+  #       patch 'status', to: 'merchants/items#update', as: :status
+  #     end
+  #   end
+    
+  #   resources :invoices, controller: 'merchants/invoices', param: :invoice_id do
+  #     member do
+  #       patch '', to: 'merchants/invoices#update', as: :status
+  #     end
+  #   end
+  # end  
 end

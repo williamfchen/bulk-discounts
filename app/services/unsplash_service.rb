@@ -1,18 +1,21 @@
 class UnsplashService
 
-  def random_photo
-    response = self.class.get('photos/random')
-    JSON.parse(response.body)
-  end
-
   def logo
     response = connection.get("/photos/MCO0-A98XQw")
-    JSON.parse(response.body, symbolize_names: true)[:urls][:thumb]
+    parsed = JSON.parse(response.body, symbolize_names: true)#[:urls][:thumb]
+    logo_photo = Photo.new(parsed)
   end
 
-  def get_photos
-    response = connection.get("/photos")
-    JSON.parse(response.body, symbolize_names: true)
+  def random_photo
+    response = connection.get("/photos/random")
+    parsed = JSON.parse(response.body, symbolize_names: true)
+    photo = Photo.new(parsed)
+  end
+
+  def search_photo(query)
+    response = connection.get("/search/photos?page=1&query=#{query}")
+    parsed = JSON.parse(response.body, symbolize_names: true)[:results].first
+    photo = Photo.new(parsed)
   end
 
   def connection

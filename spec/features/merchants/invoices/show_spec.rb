@@ -52,19 +52,19 @@ RSpec.feature "the merchant invoices show page" do
       merchant_1 = create(:merchant)
       item_1 = create(:item, merchant: merchant_1)
       customer_1 = create(:customer)
-      invoice_1 = create(:invoice, status: 0)
-      invoice_item_1 = create(:invoice_item, item: item_1, invoice: invoice_1)
+      invoice_1 = create(:invoice)
+      invoice_item_1 = create(:invoice_item, item: item_1, invoice: invoice_1, status: 0)
 
       visit merchant_invoice_path(merchant_1, invoice_1)
 
-      expect(invoice_1.status).to eq("in progress")
-      expect(page).to have_select(:status, options: ['cancelled', 'in progress', 'completed'])
-      select('cancelled', from: :status)
-      click_button('Update Invoice')
-      invoice_1.reload
+      expect(invoice_item_1.status).to eq("packaged")
+      expect(page).to have_select(:item_status, options: ['packaged', 'pending', 'shipped'])
+      select('pending', from: :item_status)
+      click_button('Update Item Status')
+      invoice_item_1.reload
       
       expect(current_path).to eq(merchant_invoice_path(merchant_1, invoice_1))
-      expect(invoice_1.status).to eq('cancelled')
+      expect(invoice_item_1.status).to eq('pending')
     end
   end
 end

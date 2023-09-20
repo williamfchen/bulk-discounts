@@ -3,11 +3,6 @@
 <p><strong>ID:</strong> <%= @invoice.id %></p>
 <p><strong>Status:</strong> <%= @invoice.status %></p>
 
-<%= form_with models: @invoice, url: merchant_invoice_status_path(@merchant, @invoice), method: :patch, data:{turbo: false} do |f| %>
-  <%= select_tag :status, options_for_select([['cancelled', 'cancelled'], ['in progress', 'in progress'], ['completed', 'completed']], @invoice.status) %>
-  <%= f.submit 'Update Invoice Status' %>
-<% end %>
-
 <p><strong>Created At:</strong> <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
 <p><strong>Customer Name:</strong> <%= "#{@invoice.customer.first_name} #{@invoice.customer.last_name}" %></p>
 
@@ -19,6 +14,7 @@
       <th>Quantity</th>
       <th>Price</th>
       <th>Status</th>
+      <th>Change Status</th>
     </tr>
   </thead>
   <tbody>
@@ -27,7 +23,11 @@
         <td><%= invoice_item.item.name %></td>
         <td><%= invoice_item.quantity %></td>
         <td><%= number_to_currency(invoice_item.unit_price / 100.0) %></td>
-        <td><%= invoice_item.status %></td>
+        <td><%= invoice_item.status %></td>  
+        <td><%= form_with url: merchant_invoice_item_path(@merchant, @invoice, invoice_item.item_id), method: :patch, data:{turbo: false} do |f| %>
+            <%= select_tag :item_status, options_for_select([['packaged', 'packaged'], ['pending', 'pending'], ['shipped', 'shipped']], invoice_item.status) %>
+            <%= f.submit 'Update Item Status' %>
+            <% end %></td>
       </tr>
     <% end %>
   </tbody>

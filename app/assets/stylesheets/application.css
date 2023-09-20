@@ -15,8 +15,4 @@
  */
 
  /* Style for tables */
-.table-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-}
+

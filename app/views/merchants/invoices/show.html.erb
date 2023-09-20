@@ -6,9 +6,10 @@
 <p><strong>Created At:</strong> <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
 <p><strong>Customer Name:</strong> <%= "#{@invoice.customer.first_name} #{@invoice.customer.last_name}" %></p>
 
-<h2>Items</h2>
-<table>
+<div class="table_container">
+<table class="table-style">
   <thead>
+<caption>Items</caption>
     <tr>
       <th>Item Name</th>
       <th>Quantity</th>
@@ -31,5 +32,6 @@
       </tr>
     <% end %>
   </tbody>
+  </div>
 
   <p> Total Revenue of Invoice: <%= number_to_currency(@invoice.total_revenue) %> </p>

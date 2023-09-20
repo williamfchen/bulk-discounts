@@ -1,7 +1,10 @@
 <h1><center><%= @merchant.name %> Items</center></h1>
+<br>
+<center><%= button_to "Create New Item", "/merchants/#{@merchant.id}/items/new", method: :get%></center>
 
-<h3>Most Popular Items</h3>
-<table id="most_popular_items">
+<div class= "table-container">
+<table id="most_popular_items" class="table-style">
+<caption>Most Popular Items</caption>
   <thead>
     <tr>
       <th>Name</th>
@@ -19,10 +22,12 @@
     <% end %>
   </tbody>
 </table>
+</div>
 
-  <h1><center>Disabled Items</center></h1>
+<div class="table-container">
 <section id="disabled_items">
-  <table>
+  <table class="table-style">
+  <caption><center>Disabled Items</center></caption>
     <%= render partial: "table_head" %>
     <tbody>
       <% @merchant.items.each do |item| %>
@@ -33,10 +38,12 @@
     </tbody>
   </table>
 </section>
+</div>
 
-<h1><center>Enabled Items</center></h1>
+<div class="table-container">
 <section id="enabled_items">
-  <table>
+  <table class="table-style">
+<caption><center>Enabled Items</center></caption>
     <%= render partial: "table_head" %>
     <tbody>
       <% @merchant.items.each do |item| %>
@@ -47,10 +54,7 @@
     </tbody>
   </table>
 </section>
-<br>
-<br>
-<br>  
+</div>
 
-<center><%= button_to "Create New Item", "/merchants/#{@merchant.id}/items/new", method: :get%></center>
 
 

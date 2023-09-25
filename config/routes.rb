@@ -17,23 +17,7 @@ Rails.application.routes.draw do
     resources :invoices, only: [:index, :show, :update]
   end
   
-  # resources :merchants, only: [] do
-  #   collection do
-  #     get ':merchant_id/dashboard', to: 'merchants#show', as: :dashboard
-  #   end
-    
-  #   resources :items, controller: 'merchants/items', param: :item_id do
-  #     member do
-  #       get 'edit', to: 'merchants/items#edit', as: :edit
-  #       patch '', to: 'merchants/items#update'
-  #       patch 'status', to: 'merchants/items#update', as: :status
-  #     end
-  #   end
-    
-  #   resources :invoices, controller: 'merchants/invoices', param: :invoice_id do
-  #     member do
-  #       patch '', to: 'merchants/invoices#update', as: :status
-  #     end
-  #   end
-  # end  
+  resources :merchants, only: [] do
+    resources :bulk_discounts, param: :discount_id, controller: 'merchants/bulk_discounts'
+  end
 end

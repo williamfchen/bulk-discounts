@@ -4,17 +4,21 @@
   <thead>
     <tr>
       <th>Discount Percentage</th>
-      <th>Minimum Item Quantiity</th>
+      <th>Quantity Threshold</th>
       <th>View Discount</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
-    <% @merchant.bulk_discounts.each do |discount| %>
+    <% @bulk_discounts.each do |discount| %>
       <tr>
-        <td><center><%= discount.percentage %></center></td>
-        <td><center><%= discount.min_quantity %><c/enter></td>
-        <td><center><%= link_to 'Show', merchant_bulk_discount_path(discount) %><c/enter></td>
+        <td><center><%= discount.percentage_discount %>%</center></td>
+        <td><center><%= discount.quantity_threshold %><c/enter></td>
+        <td><center><%= link_to 'Show', "/merchants/:merchant_id/bulk_discounts/#{discount.id}" %></center></td>
+        <td><center><%= button_to 'Delete', "/merchants/:merchant_id/bulk_discounts/#{discount.id}", method: :delete %></center></td>
       </tr>
     <% end %>
   </tbody>
 </table></center>
+
+<center><%= button_to 'Create New Discount', new_merchant_bulk_discount_path(@merchant), method: :get %></center>

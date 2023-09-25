@@ -5,6 +5,7 @@
     <tr>
       <th>Discount Percentage</th>
       <th>Minimum Item Quantiity</th>
+      <th>View Discount</th>
     </tr>
   </thead>
   <tbody>
@@ -12,6 +13,7 @@
       <tr>
         <td><center><%= discount.percentage %></center></td>
         <td><center><%= discount.min_quantity %><c/enter></td>
+        <td><center><%= link_to 'Show', merchant_bulk_discount_path(discount) %><c/enter></td>
       </tr>
     <% end %>
   </tbody>

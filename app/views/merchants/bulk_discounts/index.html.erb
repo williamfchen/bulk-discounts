@@ -1,0 +1,18 @@
+<h1><center><%= @merchant.name %> Bulk Discounts</center></h1>
+<center><table class="table-style">
+<caption>Discounts</caption>
+  <thead>
+    <tr>
+      <th>Discount Percentage</th>
+      <th>Minimum Item Quantiity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @merchant.bulk_discounts.each do |discount| %>
+      <tr>
+        <td><center><%= discount.percentage %></center></td>
+        <td><center><%= discount.min_quantity %><c/enter></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table></center>

@@ -51,6 +51,7 @@ RSpec.feature "the merchant bulk_discounts index page" do
         click_button("Delete")
       end
 
+      expect(page).to have_content("Bulk discount deleted.")
       expect(page).to have_current_path("/merchants/#{merchant.id}/bulk_discounts")
       expect(page).to_not have_content("#{discount_1.percentage_discount}%")
       expect(page).to_not have_content(discount_1.quantity_threshold)

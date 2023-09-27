@@ -17,6 +17,7 @@ RSpec.feature "the merchant discounts new page" do
       expect(page).to have_current_path("/merchants/#{merchant.id}/bulk_discounts")
       expect(page).to have_content(10)
       expect(page).to have_content(5)
+      expect(page).to have_content("Bulk discount created.")
     end
   end
 end

@@ -21,19 +21,19 @@ RSpec.feature "the merchant discount show page" do
       expect(page).to have_button("Edit")
       click_button("Edit")
       
-      # expect(page).to have_current_path("/merchants/#{merchant.id}/bulk_discounts/#{discount_1.id}/edit")
-      # expect(page).to have_field("Percentage Discount") 
-      # expect(page).to have_field("Quantity Threshold")
+      expect(page).to have_current_path("/merchants/#{merchant.id}/bulk_discounts/#{discount_1.id}/edit")
+      expect(page).to have_field("Percentage Discount") 
+      expect(page).to have_field("Quantity Threshold")
       
-      # fill_in "Percentage Discount", with: 20
-      # fill_in "Quantity Threshold", with: 40
+      fill_in "Percentage Discount", with: 20
+      fill_in "Quantity Threshold", with: 40
       
-      # click_button("Update Discount")
-      # visit "/merchants/#{merchant.id}/bulk_discounts/#{discount_1.id}"
+      click_button("Update Discount")
       
-      # expect(page).to have_current_path("/merchants/#{merchant.id}/bulk_discounts/#{discount_1.id}")
-      # expect(page).to have_content(20)
-      # expect(page).to have_content(40)
+      expect(page).to have_content("Bulk discount updated.")
+      expect(page).to have_current_path("/merchants/#{merchant.id}/bulk_discounts/#{discount_1.id}")
+      expect(page).to have_content(20)
+      expect(page).to have_content(40)
     end
   end
 end

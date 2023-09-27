@@ -20,8 +20,6 @@ class Merchants::BulkDiscountsController < ApplicationController
   
     if @bulk_discount.save
       redirect_to merchant_bulk_discounts_path(@merchant), notice: 'Bulk discount created.'
-    else
-      render :new
     end
   end
   
@@ -42,9 +40,7 @@ class Merchants::BulkDiscountsController < ApplicationController
     @bulk_discount = BulkDiscount.find(params[:discount_id])
     
     if @bulk_discount.update(bulk_discount_params)
-      redirect_to merchant_bulk_discount_path(@merchant, @bulk_discount)
-    else
-      render :edit
+      redirect_to merchant_bulk_discount_path(@merchant, @bulk_discount), notice: 'Bulk discount updated.'
     end
   end
 

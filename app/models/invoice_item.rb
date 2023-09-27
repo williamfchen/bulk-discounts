@@ -12,6 +12,8 @@ class InvoiceItem < ApplicationRecord
   def unit_price_to_decimal
     unit_price / 100.0
   end
+
+  def applicable_discount
+    item.merchant.bulk_discounts.where("#{quantity} >= quantity_threshold").order('percentage_discount DESC').first
+  end
 end
-
-

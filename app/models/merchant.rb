@@ -67,5 +67,5 @@ class Merchant < ApplicationRecord
     .first
     .created_at
     .strftime("%A, %B %-d, %Y")
-  end  
+  end 
 end

@@ -16,6 +16,7 @@
       <th>Price</th>
       <th>Status</th>
       <th>Change Status</th>
+      <th>Discount Page</th>
     </tr>
   </thead>
   <tbody>
@@ -29,9 +30,16 @@
             <%= select_tag :item_status, options_for_select([['packaged', 'packaged'], ['pending', 'pending'], ['shipped', 'shipped']], invoice_item.status) %>
             <%= f.submit 'Update Item Status' %>
             <% end %></td>
+        
+        <td><% if invoice_item.applicable_discount != nil %>
+        <%= link_to 'Show Discount', merchant_bulk_discount_path(@merchant, invoice_item.applicable_discount) %>
+        <% else %>
+        No Discount
+        <% end %></td>  
       </tr>
     <% end %>
   </tbody>
   </div>
 
-  <p> Total Revenue of Invoice: <%= number_to_currency(@invoice.total_revenue) %> </p>
+  <p>Total Revenue of Invoice: <%= number_to_currency(@invoice.total_revenue) %></p>
+  <p>Total Discounted Revenue: <%= number_to_currency(@invoice.total_discounted_revenue) %></p>

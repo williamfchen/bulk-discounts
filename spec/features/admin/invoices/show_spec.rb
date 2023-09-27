@@ -85,5 +85,23 @@ RSpec.feature "the admin/invoices show page" do
       expect(current_path).to eq(admin_invoice_path(invoice_1))
       expect(page).to have_select(:status, selected: "in progress")
     end
+
+    it '2US8 shows the total discounted revenue for an invoice' do
+      merchant = create(:merchant)
+      item_1 = create(:item, merchant: merchant)
+      item_2 = create(:item, merchant: merchant)
+      item_3 = create(:item, merchant: merchant)
+      customer = create(:customer)
+      invoice = create(:invoice, customer: customer)
+      invoice_item_1 = create(:invoice_item, item: item_1, invoice: invoice, quantity: 5, unit_price: 100)
+      invoice_item_2 = create(:invoice_item, item: item_2, invoice: invoice, quantity: 2, unit_price: 200)
+      invoice_item_3 = create(:invoice_item, item: item_3, invoice: invoice, quantity: 10, unit_price: 325)
+      discount_1 = merchant.bulk_discounts.create!(percentage_discount: 10, quantity_threshold: 5)
+      discount_2 = merchant.bulk_discounts.create!(percentage_discount: 50, quantity_threshold: 10)
+      
+      visit admin_invoice_path(invoice)
+
+      expect(page).to have_content("Total Discounted Revenue: $24.75")
+    end
   end
 end

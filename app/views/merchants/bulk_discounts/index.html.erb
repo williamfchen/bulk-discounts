@@ -11,11 +11,11 @@
   </thead>
   <tbody>
     <% @bulk_discounts.each do |discount| %>
-      <tr>
+      <tr id="discount-<%= discount.id %>">
         <td><center><%= discount.percentage_discount %>%</center></td>
         <td><center><%= discount.quantity_threshold %><c/enter></td>
-        <td><center><%= link_to 'Show', "/merchants/:merchant_id/bulk_discounts/#{discount.id}" %></center></td>
-        <td><center><%= button_to 'Delete', "/merchants/:merchant_id/bulk_discounts/#{discount.id}", method: :delete %></center></td>
+        <td><center><%= link_to 'Show', "/merchants/#{@merchant.id}/bulk_discounts/#{discount.id}" %></center></td>
+        <td><center><%= button_to 'Delete', "/merchants/#{@merchant.id}/bulk_discounts/#{discount.id}", method: :delete %></center></td>
       </tr>
     <% end %>
   </tbody>

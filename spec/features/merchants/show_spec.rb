@@ -140,4 +140,15 @@ RSpec.feature "the merchant show/dashboard page" do
       end
     end
   end
+
+  it 'shows a link to view all discounts' do
+    @merchant = create(:merchant)
+    visit "/merchants/#{@merchant.id}/dashboard"
+
+    expect(page).to have_button("View Bulk Discounts")
+
+    click_button("View Bulk Discounts")
+
+    expect(current_path).to eq(merchant_bulk_discounts_path(@merchant))
+  end
 end
